@@ -34,11 +34,21 @@ Logos built on the 3x3 block grid. Fonts: Inter / Ginto Nord / Space Mono.
 
 More pages as needed.
 
+## Git Workflow
+
+1. Always `git pull origin main` before starting work
+2. Create a feature branch for changes (`git checkout -b <branch-name>`)
+3. Commit and push to the branch
+4. Only Jodok merges to main
+
+Never commit directly to main.
+
 ## Technology
 
 - Astro (static site generator)
 - Deployment: TBD
 - Domain: namche.ai
+- Dev server: `npx astro dev --host 0.0.0.0 --port 4321`
 
 ## Tone
 
