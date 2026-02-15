@@ -37,11 +37,18 @@ More pages as needed.
 ## Git Workflow
 
 1. Always `git pull origin main` before starting work
-2. Create a feature branch for changes (`git checkout -b <branch-name>`)
+2. Create a feature branch with `tashi/` prefix (`git checkout -b tashi/<branch-name>`)
 3. Commit and push to the branch
-4. Only Jodok merges to main
+4. Open a pull request on GitHub (`gh pr create`)
+5. Wait for Jodok's approval
+6. After approval, merge to main (`gh pr merge --squash`)
 
 Never commit directly to main.
+
+## Development
+
+Use OpenAI Codex (via `sessions_spawn` with `model: codex`) for coding tasks.
+Spawn a sub-agent with the coding task, let it work on the branch, then review and PR.
 
 ## Technology
 
