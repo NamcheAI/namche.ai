@@ -37,7 +37,7 @@ More pages as needed.
 ## Git Workflow
 
 1. Always `git pull origin main` before starting work
-2. Create a feature branch for changes (`git checkout -b <branch-name>`)
+2. Create a feature branch with `tashi/` prefix (`git checkout -b tashi/<branch-name>`)
 3. Commit and push to the branch
 4. Only Jodok merges to main
 
