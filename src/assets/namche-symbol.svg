@@ -1,28 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" width="260" height="260">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" width="280" height="280">
   <!--
     namche.ai Logo Symbol — "N" im Mycelia 3x3 Blockriaster
-    X = 80 (Blockgrösse), Y = 10 (X/8), Gesamtraster: 260x260
-    Blöcke: (0,0) (90,0) (180,0) / (0,90) (90,90) (180,90) / (0,180) (90,180) (180,180)
+    Block X=80, Gap Y=10 (X/8)
+    Grid: (10,10) (100,10) (190,10) / (10,100) (100,100) (190,100) / (10,190) (100,190) (190,190)
+    
+    N construction:
+    - Left column: 3 squares (full vertical)
+    - Top-center [0,1]: quarter circle sweeping right-down
+    - Center [1,1]: quarter circle element
+    - Right column: bottom 2 squares [1,2] and [2,2]
   -->
   
-  <!-- Oben links: Halbkreis oben (aufsteigend, organischer Abschluss) -->
-  <path d="M0,80 L0,40 A40,40 0 0,1 80,40 L80,80 Z" fill="currentColor"/>
+  <!-- Left column: full vertical bar -->
+  <rect x="10" y="10" width="80" height="80" fill="currentColor"/>
+  <rect x="10" y="100" width="80" height="80" fill="currentColor"/>
+  <rect x="10" y="190" width="80" height="80" fill="currentColor"/>
   
-  <!-- Oben rechts: Quadrat -->
-  <rect x="180" y="0" width="80" height="80" fill="currentColor"/>
+  <!-- Top-center: quarter circle sweeping right-down -->
+  <path d="M100,10 h80 v80 h-80 A80,80 0 0,1 100,10Z" fill="currentColor"/>
   
-  <!-- Mitte links: Quadrat -->
-  <rect x="0" y="90" width="80" height="80" fill="currentColor"/>
+  <!-- Center: quarter circle -->
+  <path d="M100,100 h80 v80 Q100,180 100,100Z" fill="currentColor"/>
   
-  <!-- Mitte mitte: Viertelkreis (verbindet diagonal von links-oben nach rechts-unten) -->
-  <path d="M90,90 L170,90 A80,80 0 0,1 90,170 Z" fill="currentColor"/>
-  
-  <!-- Mitte rechts: Quadrat -->
-  <rect x="180" y="90" width="80" height="80" fill="currentColor"/>
-  
-  <!-- Unten links: Quadrat -->
-  <rect x="0" y="180" width="80" height="80" fill="currentColor"/>
-  
-  <!-- Unten rechts: Halbkreis unten (absteigend, organischer Abschluss) -->
-  <path d="M180,180 L260,180 L260,220 A40,40 0 0,1 180,220 Z" fill="currentColor"/>
+  <!-- Right column: bottom two blocks -->
+  <rect x="190" y="100" width="80" height="80" fill="currentColor"/>
+  <rect x="190" y="190" width="80" height="80" fill="currentColor"/>
 </svg>

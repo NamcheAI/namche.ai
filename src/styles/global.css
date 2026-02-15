@@ -1,22 +1,28 @@
 /* namche.ai — Global Styles */
 
 :root {
-  /* Primary: Slate */
-  --slate-dark: #1A2B3D;
-  --slate: #3D5A80;
-  --slate-light: #B8D0E8;
+  /* Primary: Slate Blue */
+  --primary-dark: #1E2A4A;
+  --primary: #3B5998;
+  --primary-light: #B8C9E8;
 
-  /* Secondary: Amber */
-  --amber-dark: #7A4B1A;
-  --amber: #E8A838;
-  --amber-light: #F5DCA8;
+  /* Secondary: Muted Gold */
+  --secondary-dark: #6B5A2F;
+  --secondary: #C4A44A;
+  --secondary-light: #EDE0B8;
 
-  /* Neutral */
-  --black: #0A0A0A;
-  --dark: #1C1C1E;
-  --gray: #6B7280;
-  --light: #E5E7EB;
-  --white: #FAFAFA;
+  /* Tashi Product Palette */
+  --tashi-dark: #2D4A3E;
+  --tashi: #5B9A82;
+  --tashi-light: #C8E6D8;
+
+  /* Neutral: Stone */
+  --stone-900: #1A1A1A;
+  --stone-700: #404040;
+  --stone-500: #737373;
+  --stone-300: #D4D4D4;
+  --stone-100: #F5F5F5;
+  --white: #FFFFFF;
 
   /* Layout */
   --max-width: 720px;
@@ -43,7 +49,7 @@ body {
   font-family: 'Inter', Arial, sans-serif;
   font-weight: 400;
   line-height: 1.65;
-  color: var(--black);
+  color: var(--stone-900);
   background: var(--white);
 }
 
@@ -61,20 +67,20 @@ h3 { font-size: 1.15rem; margin-bottom: var(--space-xs); margin-top: var(--space
 p { margin-bottom: var(--space-sm); }
 
 a {
-  color: var(--slate);
+  color: var(--primary);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
 
 a:hover {
-  color: var(--slate-dark);
+  color: var(--primary-dark);
 }
 
 code {
   font-family: 'Space Mono', monospace;
   font-size: 0.85rem;
-  background: var(--light);
+  background: var(--stone-100);
   padding: 0.15em 0.4em;
   border-radius: 3px;
 }
@@ -86,7 +92,7 @@ code {
 }
 
 .muted {
-  color: var(--gray);
+  color: var(--stone-500);
 }
 
 .small {
@@ -100,7 +106,7 @@ ul {
 
 ul li {
   padding: var(--space-xs) 0;
-  border-bottom: 1px solid var(--light);
+  border-bottom: 1px solid var(--stone-300);
 }
 
 ul li:last-child {

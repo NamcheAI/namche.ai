@@ -1,6 +1,6 @@
 # namche.ai Styleguide
 
-Based on the Mycelia Brand System.
+Based on the Mycelia Brand System. Full visual reference: `namche-styleguide.html`
 
 ## Concept
 
@@ -13,89 +13,96 @@ The brand combines Buddhist principles (without religiosity) with technology:
 - Reduction of noise
 - Clarity through simplicity
 
-Visually, it follows the Mycelia principle: organic and technical forms merge.
+Visual principle: organic and technical forms merge (round + angular = hybrid).
 
 ---
 
 ## Logo
 
-### Symbol
+### Symbol: "N" in 3x3 Grid
 
-The logo symbol represents the letter "N," constructed on the Mycelia 3x3 block grid.
+Grid: 3x3 blocks (X=80), gap Y = X/8 = 10. Total symbol: 280x280.
 
-**Grid:**
-- 3x3 blocks, block size X
-- Gap between blocks: Y = X/8
-- Total size: 26Y x 26Y (3X + 2Y)
-- Clear space: minimum X + Y on each side
-
-**Construction of "N":**
+**Construction:**
 ```
-[Half-circle top] [empty         ] [Square       ]
-[Square          ] [Quarter-circle] [Square       ]
-[Square          ] [empty         ] [Half-circle bottom]
+[Square       ] [Quarter-circle ↘] [empty  ]
+[Square       ] [Quarter-circle ↘] [Square ]
+[Square       ] [empty            ] [Square ]
 ```
 
-The left column forms the ascending stroke, the right the descending one.
-The quarter-circle in the center connects the two strokes diagonally.
-The half-circles at top-left and bottom-right provide organic endings.
+- Left column: 3 squares (full vertical bar)
+- Top-center [0,1]: quarter circle sweeping right-down
+- Center [1,1]: quarter circle (quadratic bezier, connects diagonal)
+- Right column: bottom 2 squares [1,2] and [2,2]
+
+### Basic Shapes
+
+Three shapes fill a single block: **square**, **quarter circle**, **half circle**.
+Shapes rotate in 90-degree increments and can expand to neighboring blocks.
 
 ### Logo with Type
 
-- Font: Inter Bold
-- Letter-spacing as defined in the Mycelia system
-- Positioning per Mycelia rules (symbol left, type right, spacing X/8 * 5)
+- Wordmark: Inter Bold, letter-spacing -0.5px
+- Symbol left, type right
+- Usable in: black on white, white on dark, primary-colored symbol, secondary-colored symbol
 
-### App Icon
+### App Icon / Favicon
 
-- Symbol on colored background (Primary/Full)
-- Rounded corners (radius X)
-- Favicon: shape/space ratio 1/4 instead of 1/8
+- Symbol on Primary/Dark background, rounded corners
+- Favicon: increased padding (shape/space 1/4 instead of 1/8)
 
 ---
 
 ## Colors
 
 Each color in three levels: dark, full, light.
-Brightness of the "full" value between 50-80 in the HSB color wheel.
+"Full" brightness between 50-80 HSB.
 
-### Primary: Slate (mountain, clarity, depth)
+### Namche Primary: Slate Blue
 
-| Level | Hex     | Description       |
-|-------|---------|-------------------|
-| Dark  | #1A2B3D | Deep night blue   |
-| Full  | #3D5A80 | Slate blue        |
-| Light | #B8D0E8 | Light mountain blue |
+| Level | Hex     |
+|-------|---------|
+| Dark  | #1E2A4A |
+| Full  | #3B5998 |
+| Light | #B8C9E8 |
 
-### Secondary: Amber (warmth, attention)
+### Namche Secondary: Muted Gold
 
-| Level | Hex     | Description       |
-|-------|---------|-------------------|
-| Dark  | #7A4B1A | Dark amber        |
-| Full  | #E8A838 | Warm amber        |
-| Light | #F5DCA8 | Light sand gold   |
+| Level | Hex     |
+|-------|---------|
+| Dark  | #6B5A2F |
+| Full  | #C4A44A |
+| Light | #EDE0B8 |
 
-### Neutral
+### Tashi Product Palette
 
-| Usage      | Hex     |
-|------------|---------|
-| Black      | #0A0A0A |
-| Dark gray  | #1C1C1E |
-| Gray       | #6B7280 |
-| Light gray | #E5E7EB |
-| White      | #FAFAFA |
+| Level | Hex     |
+|-------|---------|
+| Dark  | #2D4A3E |
+| Full  | #5B9A82 |
+| Light | #C8E6D8 |
+
+### Neutrals: Stone
+
+| Token     | Hex     |
+|-----------|---------|
+| stone-900 | #1A1A1A |
+| stone-700 | #404040 |
+| stone-500 | #737373 |
+| stone-300 | #D4D4D4 |
+| stone-100 | #F5F5F5 |
+| white     | #FFFFFF |
 
 ---
 
 ## Typography
 
-| Role        | Font             | Weight      |
-|-------------|------------------|-------------|
-| Logo        | Inter            | Bold        |
-| Headlines   | Ginto Nord       | Bold        |
-| Body        | Inter            | Regular/Medium |
-| Code / Tech | Space Mono       | Regular     |
-| Fallback    | Arial            | -           |
+| Role          | Font       | Weight        |
+|---------------|------------|---------------|
+| Logo/Headlines| Inter      | Bold (-0.02em)|
+| Body          | Inter      | Regular, 16px, line-height 1.6-1.7 |
+| Labels/Data   | Space Mono | Regular, 11-12px, uppercase, letter-spaced |
+| Fallback      | Arial      | -             |
 
 ---
 
@@ -103,21 +110,25 @@ Brightness of the "full" value between 50-80 in the HSB color wheel.
 
 ### Background Pattern
 
-As in the Mycelia system: logo symbol in three sizes as background elements:
-- Width of medium / 28 * 26
-- Width of medium / 19 * 26
-- Width of medium / 10 * 26
+Logo symbol elements in three sizes:
+- Width / 28 * 26
+- Width / 19 * 26
+- Width / 10 * 26
 
 ### Color Application
 
-1. Choose a background color (e.g., Slate/Full)
-2. Choose a pattern color from the opposite hue (e.g., Amber/Full)
-3. Apply a linear gradient to the pattern (0% to 100% transparency)
+1. Choose background color (e.g., Gold/Full)
+2. Choose pattern color from opposite hue (e.g., Blue/Full)
+3. Apply linear gradient (0% to 100% transparency) to pattern
 4. Logo always in black or white
+5. Same shade pairing rule: e.g., Blue/Light + Gold/Light
 
-### Same level rule
+### Positioning
 
-Background and pattern always in the same level: e.g., Slate/Light + Amber/Light.
+- Logo size = canvas longest side / 16-24
+- Logo always in corner positions
+- Type in black or white only, always high contrast
+- Symbol usable standalone; type never without symbol
 
 ---
 
@@ -125,6 +136,6 @@ Background and pattern always in the same level: e.g., Slate/Light + Amber/Light
 
 - Clarity over decoration
 - Generous whitespace
-- High contrast between text and background
+- High contrast
 - Restraint in color: little, but deliberate
 - No excess, no emojis, no pathos
