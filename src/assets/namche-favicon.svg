@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" width="32" height="32">
+  <!-- Favicon: grösserer Freiraum (1/4 statt 1/8) -->
+  <rect width="320" height="320" rx="64" fill="#3D5A80"/>
+  <g transform="translate(30, 30)">
+    <path d="M0,80 L0,40 A40,40 0 0,1 80,40 L80,80 Z" fill="#FAFAFA"/>
+    <rect x="180" y="0" width="80" height="80" fill="#FAFAFA"/>
+    <rect x="0" y="90" width="80" height="80" fill="#FAFAFA"/>
+    <path d="M90,90 L170,90 A80,80 0 0,1 90,170 Z" fill="#FAFAFA"/>
+    <rect x="180" y="90" width="80" height="80" fill="#FAFAFA"/>
+    <rect x="0" y="180" width="80" height="80" fill="#FAFAFA"/>
+    <path d="M180,180 L260,180 L260,220 A40,40 0 0,1 180,220 Z" fill="#FAFAFA"/>
+  </g>
+</svg>

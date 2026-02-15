@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" width="260" height="260">
+  <!--
+    Tashi Logo Symbol — "T" im Mycelia 3x3 Blockriaster
+    Der Querbalken oben, der Stamm unten mittig
+  -->
+  
+  <!-- Oben links: Halbkreis links (organischer Abschluss des Querbalkens) -->
+  <path d="M0,0 L80,0 L80,80 L40,80 A40,40 0 0,1 0,40 Z" fill="currentColor"/>
+  
+  <!-- Oben mitte: Quadrat (Querbalken Mitte) -->
+  <rect x="90" y="0" width="80" height="80" fill="currentColor"/>
+  
+  <!-- Oben rechts: Halbkreis rechts (organischer Abschluss) -->
+  <path d="M180,0 L260,0 L260,40 A40,40 0 0,1 220,80 L180,80 Z" fill="currentColor"/>
+  
+  <!-- Mitte mitte: Quadrat (Stamm) -->
+  <rect x="90" y="90" width="80" height="80" fill="currentColor"/>
+  
+  <!-- Unten mitte: Halbkreis unten (organischer Abschluss des Stamms) -->
+  <path d="M90,180 L170,180 L170,220 A40,40 0 0,1 90,220 Z" fill="currentColor"/>
+</svg>

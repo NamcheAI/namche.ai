@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 260" width="620" height="260">
+  <!--
+    namche.ai Combined Logo: Symbol + Wordmark
+    Symbol: 260x260, Wordmark offset: 260 + 50 (5*Y) = 310
+  -->
+  
+  <!-- Symbol "N" -->
+  <g>
+    <path d="M0,80 L0,40 A40,40 0 0,1 80,40 L80,80 Z" fill="currentColor"/>
+    <rect x="180" y="0" width="80" height="80" fill="currentColor"/>
+    <rect x="0" y="90" width="80" height="80" fill="currentColor"/>
+    <path d="M90,90 L170,90 A80,80 0 0,1 90,170 Z" fill="currentColor"/>
+    <rect x="180" y="90" width="80" height="80" fill="currentColor"/>
+    <rect x="0" y="180" width="80" height="80" fill="currentColor"/>
+    <path d="M180,180 L260,180 L260,220 A40,40 0 0,1 180,220 Z" fill="currentColor"/>
+  </g>
+  
+  <!-- Wordmark: "namche.ai" in Inter Bold style -->
+  <text x="310" y="175" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="72" letter-spacing="3" fill="currentColor">namche.ai</text>
+</svg>
