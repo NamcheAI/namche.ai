@@ -10,7 +10,7 @@
   <array>
     <string>/opt/homebrew/bin/node</string>
     <string>--env-file=__WORKDIR__/.env</string>
-    <string>__WORKDIR__/dist/index.js</string>
+    <string>__WORKDIR__/dist/nima/src/index.js</string>
   </array>
 
   <key>WorkingDirectory</key>

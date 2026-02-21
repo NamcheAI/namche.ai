@@ -13,6 +13,7 @@ All three use Hono, serve their own static homepage, and expose local webhook pr
 - `agents/tashi/README.md`
 - `agents/nima/README.md`
 - `agents/pema/README.md`
+- `agents/shared/README.md`
 
 ## Routes
 
