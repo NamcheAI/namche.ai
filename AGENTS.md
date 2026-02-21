@@ -29,7 +29,6 @@ Logos built on the 3x3 block grid. Fonts: Inter / Ginto Nord / Space Mono.
 
 ```
 /              — main homepage, overview
-/content        — per-site content source (namche, tashi, nima, pema)
 /docs/examples  — per-agent env + host config examples
 /docs/deploy    — launchctl template
 /server        — host-based Hono gateway (static serving + webhooks)
@@ -77,6 +76,5 @@ All completed work must go through the `codex/` branch and PR workflow above.
 - `docs/examples/` — env and host-config examples per agent
 - `docs/deploy/` — launchctl templates
 - `docs/logos/` — SVG logos (symbol, wordmark, favicon, tashi)
-- `content/` — content for all sites
-- `src/` — Astro renderer source (shared templates/layouts)
+- `src/` — Astro renderer source (shared templates/layouts and per-site Astro pages)
 - `server/` — host-based Hono gateway

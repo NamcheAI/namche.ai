@@ -1,13 +1,11 @@
 ---
-import { loadSiteData, resolveSiteId } from '../lib/site-content';
-
 interface Props {
   title: string;
   description?: string;
+  brandLabel?: string;
 }
 
-const { title, description = "namche.ai — Jodok Batlogg's AI hub" } = Astro.props;
-const site = loadSiteData(resolveSiteId());
+const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel = 'namche.ai' } = Astro.props;
 ---
 
 <!doctype html>
@@ -37,7 +35,7 @@ const site = loadSiteData(resolveSiteId());
             <rect x="190" y="100" width="80" height="80"/>
             <rect x="190" y="190" width="80" height="80"/>
           </svg>
-          <span class="text-sm font-medium tracking-wide">{site.title}</span>
+          <span class="text-sm font-medium tracking-wide">{brandLabel}</span>
         </a>
       </div>
     </header>

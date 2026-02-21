@@ -4,8 +4,9 @@ Central hub for Jodok Batlogg's AI work.
 
 ## Architecture
 
-- `content/` -> content source for all websites (`namche`, `tashi`, `nima`, `pema`)
-- `src/` -> Astro renderer for all sites (selected by `NAMCHE_SITE`)
+- `src/layouts/` -> shared Astro layouts
+- `src/components/pages/` -> per-site Astro page content (`namche`, `tashi`, `nima`, `pema`)
+- `src/pages/` -> entry routes (`/` and `/agents/<site>`)
 - `server/` -> single Hono gateway (host-based static serving + webhooks)
 - `docs/examples/` -> per-agent env + host config examples
 - `docs/deploy/` -> launchctl template
@@ -23,12 +24,16 @@ Run any site in dev mode:
 ```bash
 npm run dev -- --target namche --site namche
 npm run dev -- --target namche --site tashi
-
 ```
 
-Build all four static sites:
+In dev mode, preview individual site pages at:
 
-In dev mode, preview individual content pages at `/agents/namche`, `/agents/tashi`, `/agents/nima`, `/agents/pema`.
+- `/agents/namche`
+- `/agents/tashi`
+- `/agents/nima`
+- `/agents/pema`
+
+Build all four static sites:
 
 ```bash
 npm run build:sites
@@ -40,21 +45,21 @@ Run gateway:
 npm start -- --target gateway
 ```
 
-## Content Model
+## Site Selection
 
-Each site has one markdown content file:
+`NAMCHE_SITE` selects which Astro page is rendered at `/` during a build/run:
 
-- `content/namche/site.md`
-- `content/tashi/site.md`
-- `content/nima/site.md`
-- `content/pema/site.md`
+- `namche`
+- `tashi`
+- `nima`
+- `pema`
 
-Astro builds one static site per content folder into:
+Examples:
 
-- `dist/sites/namche`
-- `dist/sites/tashi`
-- `dist/sites/nima`
-- `dist/sites/pema`
+```bash
+npm run build:namche -- --site tashi
+npm run build:namche -- --site pema
+```
 
 ## launchctl (Single Template)
 
@@ -75,7 +80,7 @@ Create concrete plist:
 cp docs/deploy/ai.namche.agent.plist.template docs/deploy/ai.namche.<agent>.plist
 ```
 
-Then install in user space:
+Install in user space:
 
 ```bash
 cp docs/deploy/ai.namche.<agent>.plist ~/Library/LaunchAgents/
