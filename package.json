@@ -1,14 +1,22 @@
 {
-  "name": "website",
+  "name": "namche.ai",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
+    "dev": "node scripts/run.mjs dev",
+    "start": "node scripts/run.mjs start",
+    "build": "node scripts/run.mjs build-sites",
+    "build:sites": "node scripts/run.mjs build-sites",
+    "build:namche": "node scripts/run.mjs build-namche",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "serve": "node server/index.mjs"
   },
   "dependencies": {
-    "astro": "^5.17.1"
+    "@hono/node-server": "^1.19.4",
+    "@tailwindcss/vite": "^4.2.0",
+    "astro": "^5.17.1",
+    "hono": "^4.10.2",
+    "tailwindcss": "^4.2.0"
   }
 }
