@@ -56,6 +56,7 @@ All completed work must go through the `codex/` branch and PR workflow above.
 ## Technology
 
 - Astro (static site generator for `namche.ai` main page)
+- Tailwind CSS (styling for `src/` pages/components)
 - Hono (single gateway server in `server/` for host-based static serving + webhooks)
 - Deployment: TBD
 - Domain: namche.ai
