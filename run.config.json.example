@@ -1,0 +1,8 @@
+{
+  "target": "namche",
+  "ports": {
+    "tashi": 8443,
+    "nima": 8443,
+    "pema": 8443
+  }
+}

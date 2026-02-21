@@ -10,6 +10,28 @@ All agent runtimes live in this repository under `agents/`, each in its own isol
 
 Each agent is deployed and served independently on its own machine.
 
+## Unified Local Entry Point
+
+Root scripts dispatch to either Astro or an agent runtime:
+
+- `npm run dev -- --target namche` -> Astro dev server
+- `npm run dev -- --target tashi` -> Tashi Hono dev server
+- `npm run dev -- --target nima` -> Nima Hono dev server
+- `npm run dev -- --target pema` -> Pema Hono dev server
+
+For production runtime commands:
+
+- `npm start -- --target tashi`
+- `npm start -- --target nima`
+- `npm start -- --target pema`
+
+Target selection precedence:
+
+1. `--target ...`
+2. `NAMCHE_TARGET` environment variable
+3. `run.config.json` (`target`)
+4. default: `namche`
+
 ## Webhook Proxy
 
 Each agent machine runs its own local webhook proxy service using Hono.

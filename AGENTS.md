@@ -58,7 +58,7 @@ All completed work must go through the `codex/` branch and PR workflow above.
 - Hono (agent runtimes in `agents/*`)
 - Deployment: TBD
 - Domain: namche.ai
-- Dev server: `npx astro dev --host 0.0.0.0 --port 4321`
+- Unified runner: `npm run dev -- --target <namche|tashi|nima|pema>`
 
 ## Tone
 

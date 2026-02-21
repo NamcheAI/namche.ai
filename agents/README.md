@@ -25,6 +25,14 @@ Each agent runtime exposes:
 
 ## Run
 
+From repo root (unified):
+
+```bash
+npm run dev -- --target <tashi|nima|pema>
+```
+
+Direct run inside an agent:
+
 ```bash
 cd agents/<agent>
 npm install
