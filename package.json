@@ -16,7 +16,9 @@
     "@hono/node-server": "^1.19.4",
     "@tailwindcss/vite": "^4.2.0",
     "astro": "^5.17.1",
+    "gray-matter": "^4.0.3",
     "hono": "^4.10.2",
+    "marked": "^17.0.3",
     "tailwindcss": "^4.2.0"
   }
 }

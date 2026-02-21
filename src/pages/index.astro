@@ -15,38 +15,5 @@ const site = loadSiteData(siteId);
     </div>
   </section>
 
-  {
-    site.sections.map((section) => (
-      <section class="py-10 md:py-14">
-        <div class="section-label">{section.label}</div>
-
-        {section.type === 'cards' && (
-          <div class="mt-6 grid gap-4 md:grid-cols-3">
-            {section.items.map((item) => (
-              <article class="surface p-5">
-                {item.title && <h2 class="mb-2 text-lg font-semibold text-ink">{item.title}</h2>}
-                <p class="text-sm leading-relaxed text-ink-muted">{item.text}</p>
-              </article>
-            ))}
-          </div>
-        )}
-
-        {section.type === 'list' && (
-          <div class="mt-6 surface divide-y divide-line">
-            {section.items.map((item) => (
-              <div class="px-5 py-4 text-sm leading-relaxed text-ink-muted md:px-6">{item.text}</div>
-            ))}
-          </div>
-        )}
-
-        {section.type === 'text' && (
-          <div class="mt-6 space-y-4 rounded-xl border border-line bg-panel/75 p-5 md:p-6">
-            {section.items.map((item) => (
-              <p class="text-sm leading-relaxed text-ink-muted">{item.text}</p>
-            ))}
-          </div>
-        )}
-      </section>
-    ))
-  }
+  <section class="site-content prose prose-invert prose-h2:text-ink prose-h2:mt-14 prose-h2:mb-4 prose-h2:text-2xl prose-p:text-ink-muted prose-p:leading-relaxed prose-ul:text-ink-muted prose-li:my-1 max-w-none" set:html={site.contentHtml}></section>
 </Base>

@@ -38,12 +38,12 @@ npm start -- --target gateway
 
 ## Content Model
 
-Each site has one content file:
+Each site has one markdown content file:
 
-- `content/namche/site.json`
-- `content/tashi/site.json`
-- `content/nima/site.json`
-- `content/pema/site.json`
+- `content/namche/site.md`
+- `content/tashi/site.md`
+- `content/nima/site.md`
+- `content/pema/site.md`
 
 Astro builds one static site per content folder into:
 
