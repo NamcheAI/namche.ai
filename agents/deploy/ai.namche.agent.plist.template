@@ -4,12 +4,12 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>ai.namche.tashi</string>
+  <string>ai.namche.__AGENT__</string>
 
   <key>ProgramArguments</key>
   <array>
     <string>/opt/homebrew/bin/node</string>
-    <string>--env-file=__WORKDIR__/agents/tashi/.env</string>
+    <string>--env-file=__WORKDIR__/agents/__AGENT__/.env</string>
     <string>__WORKDIR__/server/index.mjs</string>
   </array>
 
@@ -21,7 +21,7 @@
     <key>NODE_ENV</key>
     <string>production</string>
     <key>NAMCHE_HOST_CONFIG</key>
-    <string>__WORKDIR__/agents/tashi/host.config.json</string>
+    <string>__WORKDIR__/agents/__AGENT__/host.config.json</string>
   </dict>
 
   <key>RunAtLoad</key>
@@ -37,9 +37,9 @@
   <integer>10</integer>
 
   <key>StandardOutPath</key>
-  <string>__WORKDIR__/logs/tashi.stdout.log</string>
+  <string>__WORKDIR__/logs/__AGENT__.stdout.log</string>
 
   <key>StandardErrorPath</key>
-  <string>__WORKDIR__/logs/tashi.stderr.log</string>
+  <string>__WORKDIR__/logs/__AGENT__.stderr.log</string>
 </dict>
 </plist>

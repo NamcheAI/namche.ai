@@ -52,7 +52,7 @@ Configuration:
 - `server/hosts.config.json` (multi-host mapping)
 - `agents/<agent>/host.config.json` (single-agent host mapping)
 - `.env` for webhook secrets and tokens
-- user-space `launchctl` templates in `agents/*/deploy`
+- single user-space `launchctl` template: `agents/deploy/ai.namche.agent.plist.template`
 
 ## Deployment Boundaries
 
