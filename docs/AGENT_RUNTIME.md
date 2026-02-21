@@ -2,15 +2,17 @@
 
 `namche.ai` serves only the main homepage.
 
-Agent websites are deployed and served independently on their own machines:
+All agent runtimes live in this repository under `agents/`, each in its own isolated subdirectory:
 
-- `tashi` -> own machine, own website, own runtime
-- `nima` -> own machine, own website, own runtime
-- `pema` -> own machine, own website, own runtime
+- `agents/tashi`
+- `agents/nima`
+- `agents/pema`
+
+Each agent is deployed and served independently on its own machine.
 
 ## Webhook Proxy
 
-Each agent machine runs a local webhook proxy service.
+Each agent machine runs its own local webhook proxy service using Hono.
 
 Responsibilities:
 
@@ -19,13 +21,13 @@ Responsibilities:
 - normalize/route events to the local agent runtime
 - isolate failures per agent (no shared runtime blast radius)
 
-Recommended per-agent routes:
+Default per-agent routes:
 
 - `/webhooks/github`
 - `/webhooks/hubspot`
 - `/webhooks/krisp`
 
-Each machine should keep its own:
+Each agent keeps its own:
 
 - `.env` with webhook secrets and tokens
 - TLS cert/key configuration
@@ -35,7 +37,7 @@ Each machine should keep its own:
 ## Deployment Boundaries
 
 - This repo (`namche.ai`) is static main-page only.
-- Agent repos/services handle:
+- Agent services in `agents/*` handle:
   - agent homepage content
   - agent runtime
   - webhook proxy endpoints
