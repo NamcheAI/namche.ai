@@ -73,7 +73,7 @@ All completed work must go through the `codex/` branch and PR workflow above.
 ## Files
 
 - `docs/STYLEGUIDE.md` — colors, typography, logo construction
-- `logos/` — SVG logos (symbol, wordmark, favicon, tashi)
+- `docs/logos/` — SVG logos (symbol, wordmark, favicon, tashi)
 - `content/` — content for all sites
 - `src/` — Astro renderer source (shared templates/layouts)
 - `agents/` — per-agent runtime configs and launchctl template
