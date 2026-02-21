@@ -28,11 +28,12 @@ Logos built on the 3x3 block grid. Fonts: Inter / Ginto Nord / Space Mono.
 ## Structure
 
 ```
-/              — homepage, overview
-/tashi         — Tashi Backlogg, Jodok's AI assistant
+/              — main homepage, overview
+/agents        — isolated agent runtimes (tashi, nima, pema)
 ```
 
-More pages as needed.
+`namche.ai` itself serves only `/`.
+Each agent serves its own website from its own machine/runtime.
 
 ## Git Workflow
 
@@ -53,7 +54,8 @@ All completed work must go through the `codex/` branch and PR workflow above.
 
 ## Technology
 
-- Astro (static site generator)
+- Astro (static site generator for `namche.ai` main page)
+- Hono (agent runtimes in `agents/*`)
 - Deployment: TBD
 - Domain: namche.ai
 - Dev server: `npx astro dev --host 0.0.0.0 --port 4321`
@@ -68,5 +70,7 @@ All completed work must go through the `codex/` branch and PR workflow above.
 ## Files
 
 - `docs/STYLEGUIDE.md` — colors, typography, logo construction
+- `docs/AGENT_RUNTIME.md` — runtime model and webhook-proxy boundaries
 - `logos/` — SVG logos (symbol, wordmark, favicon, tashi)
 - `src/` — Astro source (pages, layouts, components, styles)
+- `agents/` — per-agent Hono runtimes and static homepages
