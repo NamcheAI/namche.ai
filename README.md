@@ -22,9 +22,12 @@ Run any site in dev mode:
 ```bash
 npm run dev -- --target namche --site namche
 npm run dev -- --target namche --site tashi
+
 ```
 
 Build all four static sites:
+
+In dev mode, preview individual content pages at `/agents/namche`, `/agents/tashi`, `/agents/nima`, `/agents/pema`.
 
 ```bash
 npm run build:sites

@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import SitePage from '../../components/SitePage.astro';
+import { isSiteId, listSiteIds, loadSiteData } from '../../lib/site-content';
+
+export function getStaticPaths() {
+  return listSiteIds().map((site) => ({ params: { site } }));
+}
+
+const siteParam = Astro.params.site;
+
+if (!siteParam || !isSiteId(siteParam)) {
+  throw new Error(`Invalid site param: ${siteParam ?? 'undefined'}`);
+}
+
+const site = loadSiteData(siteParam);
+---
+
+<Base title={`${site.title} | Agent Preview`} description={site.description}>
+  <SitePage site={site} />
+</Base>

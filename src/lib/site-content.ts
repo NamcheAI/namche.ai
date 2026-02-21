@@ -4,7 +4,9 @@ import { resolve } from 'node:path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 
-interface SiteData {
+export type SiteId = 'namche' | 'tashi' | 'nima' | 'pema';
+
+export interface SiteData {
   id: string;
   title: string;
   description: string;
@@ -16,14 +18,22 @@ interface SiteData {
   contentHtml: string;
 }
 
-const VALID_SITES = new Set(['namche', 'tashi', 'nima', 'pema']);
+const VALID_SITES: SiteId[] = ['namche', 'tashi', 'nima', 'pema'];
 
-export function resolveSiteId(): string {
-  const raw = process.env.NAMCHE_SITE ?? 'namche';
-  return VALID_SITES.has(raw) ? raw : 'namche';
+export function listSiteIds(): SiteId[] {
+  return [...VALID_SITES];
 }
 
-export function loadSiteData(siteId = resolveSiteId()): SiteData {
+export function isSiteId(value: string): value is SiteId {
+  return VALID_SITES.includes(value as SiteId);
+}
+
+export function resolveSiteId(): SiteId {
+  const raw = process.env.NAMCHE_SITE ?? 'namche';
+  return isSiteId(raw) ? raw : 'namche';
+}
+
+export function loadSiteData(siteId: SiteId = resolveSiteId()): SiteData {
   const path = resolve(process.cwd(), 'content', siteId, 'site.md');
   if (!existsSync(path)) {
     throw new Error(`Missing content file: ${path}`);
