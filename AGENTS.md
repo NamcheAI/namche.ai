@@ -73,7 +73,6 @@ All completed work must go through the `codex/` branch and PR workflow above.
 ## Files
 
 - `docs/STYLEGUIDE.md` — colors, typography, logo construction
-- `docs/AGENT_RUNTIME.md` — runtime model and webhook-proxy boundaries
 - `logos/` — SVG logos (symbol, wordmark, favicon, tashi)
 - `content/` — content for all sites
 - `src/` — Astro renderer source (shared templates/layouts)
