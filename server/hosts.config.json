@@ -6,7 +6,7 @@
   "defaultSite": "namche",
   "sites": {
     "namche": {
-      "hosts": ["namche.ai", "www.namche.ai", "localhost"],
+      "hosts": ["namche", "namche.ai", "www.namche.ai", "localhost"],
       "staticDir": "dist/sites/namche",
       "webhookSecretEnv": "WEBHOOK_SECRET_NAMCHE"
     },

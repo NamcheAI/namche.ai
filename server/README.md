@@ -23,7 +23,7 @@ Config schema:
   "defaultSite": "namche",
   "sites": {
     "namche": {
-      "hosts": ["namche.ai", "www.namche.ai"],
+      "hosts": ["namche", "namche.ai", "www.namche.ai"],
       "staticDir": "dist/sites/namche",
       "webhookSecretEnv": "WEBHOOK_SECRET_NAMCHE"
     }
@@ -32,6 +32,7 @@ Config schema:
 ```
 
 `webhookSecretEnv` is optional. If set and env var exists, `x-webhook-secret` must match.
+Unknown hosts fall back to `defaultSite` (set to `namche`).
 
 ## Build + Run
 
