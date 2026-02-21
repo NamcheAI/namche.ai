@@ -1,23 +1,28 @@
 # Nima Agent
 
-Hono runtime for Nima website and webhook proxy.
+Nima static site content and host-specific deployment config for the shared gateway.
 
-## Local Run
+## Setup
 
 ```bash
-cd agents/nima
-npm install
 cp .env.example .env
-npm run dev
+cp host.config.json.example host.config.json
 ```
 
-## Production Build
+## Build
+
+From repo root:
 
 ```bash
-cd agents/nima
-npm ci
-npm run build
-mkdir -p logs
+npm run build:sites
+```
+
+## Run (Local)
+
+From repo root:
+
+```bash
+NAMCHE_HOST_CONFIG=agents/nima/host.config.json npm start -- --target gateway
 ```
 
 ## launchctl Template (User Space)
@@ -28,7 +33,7 @@ Template file:
 
 Replace placeholders:
 
-- `__WORKDIR__` -> absolute path to `agents/nima`
+- `__WORKDIR__` -> absolute path to repo root (`namche.ai`)
 
 Create concrete plist:
 
@@ -41,12 +46,4 @@ Install in user space:
 ```bash
 cp deploy/ai.namche.nima.plist ~/Library/LaunchAgents/
 launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.namche.nima.plist
-```
-
-Manage:
-
-```bash
-launchctl list | grep ai.namche.nima
-launchctl kickstart -k gui/$(id -u)/ai.namche.nima
-launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.namche.nima.plist
 ```

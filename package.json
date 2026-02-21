@@ -5,11 +5,16 @@
   "scripts": {
     "dev": "node scripts/run.mjs dev",
     "start": "node scripts/run.mjs start",
-    "build": "astro build",
+    "build": "node scripts/run.mjs build-sites",
+    "build:sites": "node scripts/run.mjs build-sites",
+    "build:namche": "node scripts/run.mjs build-namche",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "serve": "node server/index.mjs"
   },
   "dependencies": {
-    "astro": "^5.17.1"
+    "@hono/node-server": "^1.19.4",
+    "astro": "^5.17.1",
+    "hono": "^4.10.2"
   }
 }

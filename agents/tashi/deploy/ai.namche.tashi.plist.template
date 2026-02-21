@@ -9,8 +9,8 @@
   <key>ProgramArguments</key>
   <array>
     <string>/opt/homebrew/bin/node</string>
-    <string>--env-file=__WORKDIR__/.env</string>
-    <string>__WORKDIR__/dist/tashi/src/index.js</string>
+    <string>--env-file=__WORKDIR__/agents/tashi/.env</string>
+    <string>__WORKDIR__/server/index.mjs</string>
   </array>
 
   <key>WorkingDirectory</key>
@@ -20,6 +20,8 @@
   <dict>
     <key>NODE_ENV</key>
     <string>production</string>
+    <key>NAMCHE_HOST_CONFIG</key>
+    <string>__WORKDIR__/agents/tashi/host.config.json</string>
   </dict>
 
   <key>RunAtLoad</key>
@@ -35,9 +37,9 @@
   <integer>10</integer>
 
   <key>StandardOutPath</key>
-  <string>__WORKDIR__/logs/stdout.log</string>
+  <string>__WORKDIR__/logs/tashi.stdout.log</string>
 
   <key>StandardErrorPath</key>
-  <string>__WORKDIR__/logs/stderr.log</string>
+  <string>__WORKDIR__/logs/tashi.stderr.log</string>
 </dict>
 </plist>

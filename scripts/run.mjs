@@ -1,15 +1,15 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 
 const mode = process.argv[2] ?? 'dev';
 const args = process.argv.slice(3);
 
-const VALID_MODES = new Set(['dev', 'start']);
-const VALID_TARGETS = new Set(['namche', 'tashi', 'nima', 'pema']);
+const VALID_MODES = new Set(['dev', 'start', 'build-sites', 'build-namche']);
+const VALID_TARGETS = new Set(['namche', 'gateway']);
 
 if (!VALID_MODES.has(mode)) {
-  console.error(`Invalid mode: ${mode}. Use one of: dev, start.`);
+  console.error(`Invalid mode: ${mode}. Use one of: dev, start, build-sites, build-namche.`);
   process.exit(1);
 }
 
@@ -36,21 +36,6 @@ function loadConfig() {
   }
 }
 
-const config = loadConfig();
-const target = parseCliArg('target') ?? process.env.NAMCHE_TARGET ?? config.target ?? 'namche';
-
-if (!VALID_TARGETS.has(target)) {
-  console.error(`Invalid target: ${target}. Use one of: namche, tashi, nima, pema.`);
-  process.exit(1);
-}
-
-const passThroughArgs = args.filter((arg, index) => {
-  if (arg.startsWith('--target=')) return false;
-  if (arg === '--target') return false;
-  if (index > 0 && args[index - 1] === '--target') return false;
-  return true;
-});
-
 function run(command, commandArgs, extraEnv = {}) {
   const child = spawn(command, commandArgs, {
     stdio: 'inherit',
@@ -70,6 +55,38 @@ function run(command, commandArgs, extraEnv = {}) {
   });
 }
 
+const config = loadConfig();
+const defaultTarget = mode === 'dev' ? 'namche' : 'gateway';
+const target = parseCliArg('target') ?? process.env.NAMCHE_TARGET ?? config.target ?? defaultTarget;
+
+if (!VALID_TARGETS.has(target)) {
+  console.error(`Invalid target: ${target}. Use one of: namche, gateway.`);
+  process.exit(1);
+}
+
+const passThroughArgs = args.filter((arg, index) => {
+  if (arg.startsWith('--target=')) return false;
+  if (arg === '--target') return false;
+  if (index > 0 && args[index - 1] === '--target') return false;
+  return true;
+});
+
+if (mode === 'build-sites') {
+  const result = spawnSync('node', ['scripts/build-sites.mjs', ...passThroughArgs], {
+    stdio: 'inherit',
+    env: process.env,
+  });
+  process.exit(result.status ?? 1);
+}
+
+if (mode === 'build-namche') {
+  const result = spawnSync('npx', ['astro', 'build', ...passThroughArgs], {
+    stdio: 'inherit',
+    env: process.env,
+  });
+  process.exit(result.status ?? 1);
+}
+
 if (target === 'namche') {
   if (mode === 'dev') {
     run('npx', ['astro', 'dev', '--host', '0.0.0.0', '--port', '4321', ...passThroughArgs]);
@@ -77,14 +94,17 @@ if (target === 'namche') {
     run('npx', ['astro', 'preview', ...passThroughArgs]);
   }
 } else {
-  const agentDir = `agents/${target}`;
-  const agentPortFromConfig = config.ports && typeof config.ports === 'object' ? config.ports[target] : undefined;
-  const portFromConfig = agentPortFromConfig != null ? String(agentPortFromConfig) : undefined;
-
   const extraEnv = {};
-  if (!process.env.PORT && portFromConfig) {
-    extraEnv.PORT = portFromConfig;
+  const cfg = config.gateway ?? {};
+  if (!process.env.PORT && cfg.port) {
+    extraEnv.PORT = String(cfg.port);
+  }
+  if (!process.env.HOST && cfg.host) {
+    extraEnv.HOST = String(cfg.host);
+  }
+  if (!process.env.NAMCHE_HOST_CONFIG && cfg.configPath) {
+    extraEnv.NAMCHE_HOST_CONFIG = String(cfg.configPath);
   }
 
-  run('npm', ['--prefix', agentDir, 'run', mode, ...passThroughArgs], extraEnv);
+  run('node', ['server/index.mjs', ...passThroughArgs], extraEnv);
 }

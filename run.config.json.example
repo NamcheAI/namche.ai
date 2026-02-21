@@ -1,8 +1,8 @@
 {
-  "target": "namche",
-  "ports": {
-    "tashi": 8443,
-    "nima": 8443,
-    "pema": 8443
+  "target": "gateway",
+  "gateway": {
+    "host": "0.0.0.0",
+    "port": 8443,
+    "configPath": "server/hosts.config.json"
   }
 }

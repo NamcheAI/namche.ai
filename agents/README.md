@@ -1,52 +1,43 @@
 # Agents
 
-Each agent has its own isolated runtime in this directory.
+Each agent has its own static site content and deployment config in this directory.
 
 - `tashi` (`agents/tashi`)
 - `nima` (`agents/nima`)
 - `pema` (`agents/pema`)
 
-All three use Hono, serve their own static homepage, and expose local webhook proxy endpoints.
+A single root Hono gateway (`server/index.mjs`) serves static files by host and proxies webhooks.
 
-## Agent Docs
+## Build Static Sites
 
-- `agents/tashi/README.md`
-- `agents/nima/README.md`
-- `agents/pema/README.md`
-- `agents/shared/README.md`
-
-## Routes
-
-Each agent runtime exposes:
-
-- `GET /healthz`
-- `POST /webhooks/:source`
-- static homepage from `public/`
-
-## Run
-
-From repo root (unified):
+From repo root:
 
 ```bash
-npm run dev -- --target <tashi|nima|pema>
+npm run build:sites
 ```
 
-Direct run inside an agent:
+This creates:
+
+- `dist/sites/namche` (Astro build)
+- `dist/sites/tashi` (copied from `agents/tashi/public`)
+- `dist/sites/nima` (copied from `agents/nima/public`)
+- `dist/sites/pema` (copied from `agents/pema/public`)
+
+## Run Gateway
+
+From repo root:
 
 ```bash
-cd agents/<agent>
-npm install
-cp .env.example .env
-npm run dev
+npm start -- --target gateway
 ```
 
-Environment variables:
+Or config-driven defaults via `run.config.json`.
 
-- `PORT` (default: `8443`)
-- `WEBHOOK_SECRET` (optional header check against `x-webhook-secret`)
+## Agent Files
 
-## launchd Templates
+Each agent folder contains:
 
-- `agents/tashi/deploy/ai.namche.tashi.plist.template`
-- `agents/nima/deploy/ai.namche.nima.plist.template`
-- `agents/pema/deploy/ai.namche.pema.plist.template`
+- `public/` static content
+- `.env.example` webhook/tls env template
+- `host.config.json.example` host -> staticDir mapping for the gateway
+- `deploy/*.plist.template` launchctl user-space template

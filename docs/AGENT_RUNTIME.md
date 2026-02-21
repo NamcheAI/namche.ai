@@ -1,65 +1,61 @@
 # Agent Runtime Model
 
-`namche.ai` serves only the main homepage.
+`namche.ai` static pages and all agent static pages are served by one Hono gateway.
 
-All agent runtimes live in this repository under `agents/`, each in its own isolated subdirectory:
+Agent content/config lives in this repository under `agents/`:
 
 - `agents/tashi`
 - `agents/nima`
 - `agents/pema`
 
-Each agent is deployed and served independently on its own machine.
+Deploy modes:
+
+- single machine serving multiple hosts (`namche.ai`, `tashi.namche.ai`, ...)
+- one machine per agent using host-specific config (`agents/<agent>/host.config.json`)
 
 ## Unified Local Entry Point
 
-Root scripts dispatch to either Astro or an agent runtime:
+Root scripts dispatch to either Astro dev mode or the Hono gateway:
 
 - `npm run dev -- --target namche` -> Astro dev server
-- `npm run dev -- --target tashi` -> Tashi Hono dev server
-- `npm run dev -- --target nima` -> Nima Hono dev server
-- `npm run dev -- --target pema` -> Pema Hono dev server
+- `npm start -- --target gateway` -> Hono gateway
 
-For production runtime commands:
+Static build:
 
-- `npm start -- --target tashi`
-- `npm start -- --target nima`
-- `npm start -- --target pema`
+- `npm run build:sites`
 
 Target selection precedence:
 
 1. `--target ...`
 2. `NAMCHE_TARGET` environment variable
 3. `run.config.json` (`target`)
-4. default: `namche`
+4. default: `namche` for `dev`, `gateway` for `start`
 
 ## Webhook Proxy
 
-Each agent machine runs its own local webhook proxy service using Hono.
+The Hono gateway exposes host-aware webhook endpoints:
 
 Responsibilities:
 
 - terminate incoming webhook requests
-- verify shared secrets and provider signatures
-- normalize/route events to the local agent runtime
-- isolate failures per agent (no shared runtime blast radius)
+- verify shared secret per mapped host/site
+- normalize/route events to downstream automation
 
-Default per-agent routes:
+Default routes:
 
 - `/webhooks/github`
 - `/webhooks/hubspot`
 - `/webhooks/krisp`
 
-Each agent keeps its own:
+Configuration:
 
-- `.env` with webhook secrets and tokens
-- TLS cert/key configuration
-- process supervisor setup (for example `launchd` on macOS)
-- logs (`stdout` and `stderr`)
+- `server/hosts.config.json` (multi-host mapping)
+- `agents/<agent>/host.config.json` (single-agent host mapping)
+- `.env` for webhook secrets and tokens
+- user-space `launchctl` templates in `agents/*/deploy`
 
 ## Deployment Boundaries
 
-- This repo (`namche.ai`) is static main-page only.
-- Agent services in `agents/*` handle:
-  - agent homepage content
-  - agent runtime
-  - webhook proxy endpoints
+- Astro builds static output (`dist/sites/namche`).
+- Agent folders provide static source and host-specific configs.
+- One Hono gateway serves static pages by host and handles webhooks.

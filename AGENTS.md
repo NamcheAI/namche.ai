@@ -29,11 +29,12 @@ Logos built on the 3x3 block grid. Fonts: Inter / Ginto Nord / Space Mono.
 
 ```
 /              — main homepage, overview
-/agents        — isolated agent runtimes (tashi, nima, pema)
+/agents        — per-agent static content and deployment config
+/server        — host-based Hono gateway (static serving + webhooks)
 ```
 
 `namche.ai` itself serves only `/`.
-Each agent serves its own website from its own machine/runtime.
+Gateway behavior can be host-based multi-site or one-site-per-machine via config.
 
 ## Git Workflow
 
@@ -55,10 +56,10 @@ All completed work must go through the `codex/` branch and PR workflow above.
 ## Technology
 
 - Astro (static site generator for `namche.ai` main page)
-- Hono (agent runtimes in `agents/*`)
+- Hono (single gateway server in `server/` for host-based static serving + webhooks)
 - Deployment: TBD
 - Domain: namche.ai
-- Unified runner: `npm run dev -- --target <namche|tashi|nima|pema>`
+- Unified runner: `npm run dev -- --target namche` or `npm start -- --target gateway`
 
 ## Tone
 
@@ -73,4 +74,5 @@ All completed work must go through the `codex/` branch and PR workflow above.
 - `docs/AGENT_RUNTIME.md` — runtime model and webhook-proxy boundaries
 - `logos/` — SVG logos (symbol, wordmark, favicon, tashi)
 - `src/` — Astro source (pages, layouts, components, styles)
-- `agents/` — per-agent Hono runtimes and static homepages
+- `agents/` — per-agent static homepages and host/deploy configs
+- `server/` — host-based Hono gateway
