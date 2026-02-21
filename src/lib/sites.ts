@@ -5,6 +5,7 @@ const SITE_IDS: SiteId[] = ['namche', 'tashi', 'nima', 'pema'];
 export interface SiteMeta {
   title: string;
   description: string;
+  brandLabel?: string;
   hero: {
     eyebrow: string;
     headline: string;
@@ -23,11 +24,12 @@ export const SITE_META: Record<SiteId, SiteMeta> = {
     },
   },
   tashi: {
-    title: 'Tashi',
+    title: "Tashi 🐐 -- Jodok's AI Assistant",
     description: "Tashi is Jodok Batlogg's personal AI agent.",
+    brandLabel: 'Tashi 🐐',
     hero: {
       eyebrow: 'Agent',
-      headline: 'Tashi',
+      headline: 'Tashi 🐐',
       tagline: "Jodok's AI assistant. Calm, precise, unfazed.",
     },
   },
