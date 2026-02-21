@@ -21,6 +21,7 @@ Each agent runtime exposes:
 ```bash
 cd agents/<agent>
 npm install
+cp .env.example .env
 npm run dev
 ```
 
