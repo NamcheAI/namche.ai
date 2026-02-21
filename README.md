@@ -7,7 +7,8 @@ Central hub for Jodok Batlogg's AI work.
 - `content/` -> content source for all websites (`namche`, `tashi`, `nima`, `pema`)
 - `src/` -> Astro renderer for all sites (selected by `NAMCHE_SITE`)
 - `server/` -> single Hono gateway (host-based static serving + webhooks)
-- `agents/` -> per-agent runtime config (`.env`, host config, launchctl)
+- `docs/examples/` -> per-agent env + host config examples
+- `docs/deploy/` -> launchctl template
 
 ## Quick Start
 
@@ -59,16 +60,24 @@ Astro builds one static site per content folder into:
 
 Template:
 
-- `agents/deploy/ai.namche.agent.plist.template`
+- `docs/deploy/ai.namche.agent.plist.template`
 
 Replace placeholders:
 
 - `__WORKDIR__` -> absolute repo path
 - `__AGENT__` -> `tashi`, `nima`, or `pema`
+- `__ENV_FILE__` -> absolute path to runtime env file
+- `__HOST_CONFIG__` -> absolute path to gateway host config file
+
+Create concrete plist:
+
+```bash
+cp docs/deploy/ai.namche.agent.plist.template docs/deploy/ai.namche.<agent>.plist
+```
 
 Then install in user space:
 
 ```bash
-cp agents/deploy/ai.namche.<agent>.plist ~/Library/LaunchAgents/
+cp docs/deploy/ai.namche.<agent>.plist ~/Library/LaunchAgents/
 launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.namche.<agent>.plist
 ```

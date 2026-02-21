@@ -9,7 +9,7 @@
   <key>ProgramArguments</key>
   <array>
     <string>/opt/homebrew/bin/node</string>
-    <string>--env-file=__WORKDIR__/agents/__AGENT__/.env</string>
+    <string>--env-file=__ENV_FILE__</string>
     <string>__WORKDIR__/server/index.mjs</string>
   </array>
 
@@ -21,7 +21,7 @@
     <key>NODE_ENV</key>
     <string>production</string>
     <key>NAMCHE_HOST_CONFIG</key>
-    <string>__WORKDIR__/agents/__AGENT__/host.config.json</string>
+    <string>__HOST_CONFIG__</string>
   </dict>
 
   <key>RunAtLoad</key>
