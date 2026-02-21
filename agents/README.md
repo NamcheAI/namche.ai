@@ -8,6 +8,12 @@ Each agent has its own isolated runtime in this directory.
 
 All three use Hono, serve their own static homepage, and expose local webhook proxy endpoints.
 
+## Agent Docs
+
+- `agents/tashi/README.md`
+- `agents/nima/README.md`
+- `agents/pema/README.md`
+
 ## Routes
 
 Each agent runtime exposes:
@@ -29,3 +35,9 @@ Environment variables:
 
 - `PORT` (defaults: `8443` for tashi, `8444` for nima, `8445` for pema)
 - `WEBHOOK_SECRET` (optional header check against `x-webhook-secret`)
+
+## launchd Templates
+
+- `agents/tashi/deploy/com.namche.tashi.plist.template`
+- `agents/nima/deploy/com.namche.nima.plist.template`
+- `agents/pema/deploy/com.namche.pema.plist.template`
