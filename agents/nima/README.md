@@ -1,6 +1,6 @@
 # Nima Agent
 
-Hono runtime for Nima website + webhook proxy.
+Hono runtime for Nima website and webhook proxy.
 
 ## Local Run
 
@@ -20,34 +20,33 @@ npm run build
 mkdir -p logs
 ```
 
-## launchd Template
+## launchctl Template (User Space)
 
 Template file:
 
-- `deploy/com.namche.nima.plist.template`
+- `deploy/ai.namche.nima.plist.template`
 
 Replace placeholders:
 
 - `__WORKDIR__` -> absolute path to `agents/nima`
-- `__USER__` -> macOS user running the service
 
 Create concrete plist:
 
 ```bash
-cp deploy/com.namche.nima.plist.template deploy/com.namche.nima.plist
+cp deploy/ai.namche.nima.plist.template deploy/ai.namche.nima.plist
 ```
 
-Then install:
+Install in user space:
 
 ```bash
-sudo cp deploy/com.namche.nima.plist /Library/LaunchDaemons/
-sudo launchctl load /Library/LaunchDaemons/com.namche.nima.plist
+cp deploy/ai.namche.nima.plist ~/Library/LaunchAgents/
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.namche.nima.plist
 ```
 
 Manage:
 
 ```bash
-sudo launchctl list | grep com.namche.nima
-sudo launchctl kickstart -k system/com.namche.nima
-sudo launchctl unload /Library/LaunchDaemons/com.namche.nima.plist
+launchctl list | grep ai.namche.nima
+launchctl kickstart -k gui/$(id -u)/ai.namche.nima
+launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.namche.nima.plist
 ```

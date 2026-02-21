@@ -1,6 +1,6 @@
 # Tashi Agent
 
-Hono runtime for Tashi website + webhook proxy.
+Hono runtime for Tashi website and webhook proxy.
 
 ## Local Run
 
@@ -20,34 +20,33 @@ npm run build
 mkdir -p logs
 ```
 
-## launchd Template
+## launchctl Template (User Space)
 
 Template file:
 
-- `deploy/com.namche.tashi.plist.template`
+- `deploy/ai.namche.tashi.plist.template`
 
 Replace placeholders:
 
 - `__WORKDIR__` -> absolute path to `agents/tashi`
-- `__USER__` -> macOS user running the service
 
 Create concrete plist:
 
 ```bash
-cp deploy/com.namche.tashi.plist.template deploy/com.namche.tashi.plist
+cp deploy/ai.namche.tashi.plist.template deploy/ai.namche.tashi.plist
 ```
 
-Then install:
+Install in user space:
 
 ```bash
-sudo cp deploy/com.namche.tashi.plist /Library/LaunchDaemons/
-sudo launchctl load /Library/LaunchDaemons/com.namche.tashi.plist
+cp deploy/ai.namche.tashi.plist ~/Library/LaunchAgents/
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.namche.tashi.plist
 ```
 
 Manage:
 
 ```bash
-sudo launchctl list | grep com.namche.tashi
-sudo launchctl kickstart -k system/com.namche.tashi
-sudo launchctl unload /Library/LaunchDaemons/com.namche.tashi.plist
+launchctl list | grep ai.namche.tashi
+launchctl kickstart -k gui/$(id -u)/ai.namche.tashi
+launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.namche.tashi.plist
 ```

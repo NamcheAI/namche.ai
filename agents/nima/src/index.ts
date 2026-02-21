@@ -8,7 +8,7 @@ import { Hono } from 'hono';
 const app = new Hono();
 
 const agentId = 'nima';
-const port = Number(process.env.PORT ?? 8444);
+const port = Number(process.env.PORT ?? 8443);
 const webhookSecret = process.env.WEBHOOK_SECRET;
 const publicDir = './public';
 const indexPath = resolve(publicDir, 'index.html');

@@ -1,6 +1,6 @@
 # Pema Agent
 
-Hono runtime for Pema website + webhook proxy.
+Hono runtime for Pema website and webhook proxy.
 
 ## Local Run
 
@@ -20,34 +20,33 @@ npm run build
 mkdir -p logs
 ```
 
-## launchd Template
+## launchctl Template (User Space)
 
 Template file:
 
-- `deploy/com.namche.pema.plist.template`
+- `deploy/ai.namche.pema.plist.template`
 
 Replace placeholders:
 
 - `__WORKDIR__` -> absolute path to `agents/pema`
-- `__USER__` -> macOS user running the service
 
 Create concrete plist:
 
 ```bash
-cp deploy/com.namche.pema.plist.template deploy/com.namche.pema.plist
+cp deploy/ai.namche.pema.plist.template deploy/ai.namche.pema.plist
 ```
 
-Then install:
+Install in user space:
 
 ```bash
-sudo cp deploy/com.namche.pema.plist /Library/LaunchDaemons/
-sudo launchctl load /Library/LaunchDaemons/com.namche.pema.plist
+cp deploy/ai.namche.pema.plist ~/Library/LaunchAgents/
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.namche.pema.plist
 ```
 
 Manage:
 
 ```bash
-sudo launchctl list | grep com.namche.pema
-sudo launchctl kickstart -k system/com.namche.pema
-sudo launchctl unload /Library/LaunchDaemons/com.namche.pema.plist
+launchctl list | grep ai.namche.pema
+launchctl kickstart -k gui/$(id -u)/ai.namche.pema
+launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/ai.namche.pema.plist
 ```

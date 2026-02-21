@@ -33,11 +33,11 @@ npm run dev
 
 Environment variables:
 
-- `PORT` (defaults: `8443` for tashi, `8444` for nima, `8445` for pema)
+- `PORT` (default: `8443`)
 - `WEBHOOK_SECRET` (optional header check against `x-webhook-secret`)
 
 ## launchd Templates
 
-- `agents/tashi/deploy/com.namche.tashi.plist.template`
-- `agents/nima/deploy/com.namche.nima.plist.template`
-- `agents/pema/deploy/com.namche.pema.plist.template`
+- `agents/tashi/deploy/ai.namche.tashi.plist.template`
+- `agents/nima/deploy/ai.namche.nima.plist.template`
+- `agents/pema/deploy/ai.namche.pema.plist.template`

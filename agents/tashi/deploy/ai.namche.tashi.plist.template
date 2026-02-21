@@ -4,7 +4,7 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>com.namche.pema</string>
+  <string>ai.namche.tashi</string>
 
   <key>ProgramArguments</key>
   <array>
@@ -39,8 +39,5 @@
 
   <key>StandardErrorPath</key>
   <string>__WORKDIR__/logs/stderr.log</string>
-
-  <key>UserName</key>
-  <string>__USER__</string>
 </dict>
 </plist>
