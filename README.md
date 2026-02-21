@@ -4,9 +4,10 @@ Central hub for Jodok Batlogg's AI work.
 
 ## Architecture
 
-- `src/` -> Astro source for the main `namche.ai` site
-- `agents/` -> per-agent static content and host/env config
+- `content/` -> content source for all websites (`namche`, `tashi`, `nima`, `pema`)
+- `src/` -> Astro renderer for all sites (selected by `NAMCHE_SITE`)
 - `server/` -> single Hono gateway (host-based static serving + webhooks)
+- `agents/` -> per-agent runtime config (`.env`, host config, launchctl)
 
 ## Quick Start
 
@@ -16,13 +17,14 @@ Install dependencies:
 npm install
 ```
 
-Run main site in dev mode:
+Run any site in dev mode:
 
 ```bash
-npm run dev -- --target namche
+npm run dev -- --target namche --site namche
+npm run dev -- --target namche --site tashi
 ```
 
-Build all static sites:
+Build all four static sites:
 
 ```bash
 npm run build:sites
@@ -34,14 +36,21 @@ Run gateway:
 npm start -- --target gateway
 ```
 
-## Per-Agent Setup
+## Content Model
 
-For each agent (`tashi`, `nima`, `pema`):
+Each site has one content file:
 
-```bash
-cp agents/<agent>/.env.example agents/<agent>/.env
-cp agents/<agent>/host.config.json.example agents/<agent>/host.config.json
-```
+- `content/namche/site.json`
+- `content/tashi/site.json`
+- `content/nima/site.json`
+- `content/pema/site.json`
+
+Astro builds one static site per content folder into:
+
+- `dist/sites/namche`
+- `dist/sites/tashi`
+- `dist/sites/nima`
+- `dist/sites/pema`
 
 ## launchctl (Single Template)
 

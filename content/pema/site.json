@@ -1,0 +1,29 @@
+{
+  "id": "pema",
+  "title": "Pema",
+  "description": "Pema agent site.",
+  "hero": {
+    "eyebrow": "Agent",
+    "headline": "Pema",
+    "tagline": "Independent agent runtime with dedicated host and webhook flow."
+  },
+  "sections": [
+    {
+      "label": "Scope",
+      "type": "text",
+      "items": [
+        { "text": "Pema runs as a distinct site served by the host-routed gateway." }
+      ]
+    },
+    {
+      "label": "Status",
+      "type": "list",
+      "items": [
+        { "text": "Content-based Astro build active." },
+        { "text": "Served via Hono gateway by host mapping." },
+        { "text": "Webhook proxy endpoint available." }
+      ]
+    }
+  ],
+  "footer": "Pema runtime via namche gateway."
+}

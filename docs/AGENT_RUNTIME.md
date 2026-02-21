@@ -2,60 +2,49 @@
 
 `namche.ai` static pages and all agent static pages are served by one Hono gateway.
 
-Agent content/config lives in this repository under `agents/`:
+## Content-Driven Sites
 
-- `agents/tashi`
-- `agents/nima`
-- `agents/pema`
+All website content lives under `content/`:
 
-Deploy modes:
+- `content/namche/site.json`
+- `content/tashi/site.json`
+- `content/nima/site.json`
+- `content/pema/site.json`
 
-- single machine serving multiple hosts (`namche.ai`, `tashi.namche.ai`, ...)
-- one machine per agent using host-specific config (`agents/<agent>/host.config.json`)
+Astro uses one shared renderer (`src/`) and builds four distinct static outputs via `NAMCHE_SITE`.
 
-## Unified Local Entry Point
+## Build
 
-Root scripts dispatch to either Astro dev mode or the Hono gateway:
+```bash
+npm run build:sites
+```
 
-- `npm run dev -- --target namche` -> Astro dev server
-- `npm start -- --target gateway` -> Hono gateway
+Build outputs:
 
-Static build:
+- `dist/sites/namche`
+- `dist/sites/tashi`
+- `dist/sites/nima`
+- `dist/sites/pema`
 
-- `npm run build:sites`
+## Gateway
 
-Target selection precedence:
+Single Hono runtime (`server/index.mjs`) provides:
 
-1. `--target ...`
-2. `NAMCHE_TARGET` environment variable
-3. `run.config.json` (`target`)
-4. default: `namche` for `dev`, `gateway` for `start`
+- host-based static serving
+- webhook proxy endpoint: `POST /webhooks/:source`
 
-## Webhook Proxy
-
-The Hono gateway exposes host-aware webhook endpoints:
-
-Responsibilities:
-
-- terminate incoming webhook requests
-- verify shared secret per mapped host/site
-- normalize/route events to downstream automation
-
-Default routes:
-
-- `/webhooks/github`
-- `/webhooks/hubspot`
-- `/webhooks/krisp`
-
-Configuration:
+Config options:
 
 - `server/hosts.config.json` (multi-host mapping)
-- `agents/<agent>/host.config.json` (single-agent host mapping)
-- `.env` for webhook secrets and tokens
-- single user-space `launchctl` template: `agents/deploy/ai.namche.agent.plist.template`
+- `agents/<agent>/host.config.json` (single-agent deployment)
 
-## Deployment Boundaries
+## launchctl
 
-- Astro builds static output (`dist/sites/namche`).
-- Agent folders provide static source and host-specific configs.
-- One Hono gateway serves static pages by host and handles webhooks.
+Single template for all agents:
+
+- `agents/deploy/ai.namche.agent.plist.template`
+
+Replace:
+
+- `__WORKDIR__` with absolute repo path
+- `__AGENT__` with `tashi`, `nima`, or `pema`

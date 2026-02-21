@@ -7,6 +7,7 @@ const args = process.argv.slice(3);
 
 const VALID_MODES = new Set(['dev', 'start', 'build-sites', 'build-namche']);
 const VALID_TARGETS = new Set(['namche', 'gateway']);
+const VALID_SITES = new Set(['namche', 'tashi', 'nima', 'pema']);
 
 if (!VALID_MODES.has(mode)) {
   console.error(`Invalid mode: ${mode}. Use one of: dev, start, build-sites, build-namche.`);
@@ -58,16 +59,23 @@ function run(command, commandArgs, extraEnv = {}) {
 const config = loadConfig();
 const defaultTarget = mode === 'dev' ? 'namche' : 'gateway';
 const target = parseCliArg('target') ?? process.env.NAMCHE_TARGET ?? config.target ?? defaultTarget;
+const site = parseCliArg('site') ?? process.env.NAMCHE_SITE ?? config.site ?? 'namche';
 
 if (!VALID_TARGETS.has(target)) {
   console.error(`Invalid target: ${target}. Use one of: namche, gateway.`);
   process.exit(1);
 }
 
+if (!VALID_SITES.has(site)) {
+  console.error(`Invalid site: ${site}. Use one of: namche, tashi, nima, pema.`);
+  process.exit(1);
+}
+
 const passThroughArgs = args.filter((arg, index) => {
   if (arg.startsWith('--target=')) return false;
-  if (arg === '--target') return false;
-  if (index > 0 && args[index - 1] === '--target') return false;
+  if (arg.startsWith('--site=')) return false;
+  if (arg === '--target' || arg === '--site') return false;
+  if (index > 0 && (args[index - 1] === '--target' || args[index - 1] === '--site')) return false;
   return true;
 });
 
@@ -82,14 +90,19 @@ if (mode === 'build-sites') {
 if (mode === 'build-namche') {
   const result = spawnSync('npx', ['astro', 'build', ...passThroughArgs], {
     stdio: 'inherit',
-    env: process.env,
+    env: {
+      ...process.env,
+      NAMCHE_SITE: site,
+    },
   });
   process.exit(result.status ?? 1);
 }
 
 if (target === 'namche') {
   if (mode === 'dev') {
-    run('npx', ['astro', 'dev', '--host', '0.0.0.0', '--port', '4321', ...passThroughArgs]);
+    run('npx', ['astro', 'dev', '--host', '0.0.0.0', '--port', '4321', ...passThroughArgs], {
+      NAMCHE_SITE: site,
+    });
   } else {
     run('npx', ['astro', 'preview', ...passThroughArgs]);
   }

@@ -1,0 +1,33 @@
+{
+  "id": "namche",
+  "title": "namche.ai",
+  "description": "Central hub for Jodok Batlogg's AI work.",
+  "hero": {
+    "eyebrow": "Hub",
+    "headline": "namche.ai",
+    "tagline": "Central hub for Jodok Batlogg's AI work. Named after Namche Bazaar, gateway to the Himalayas."
+  },
+  "sections": [
+    {
+      "label": "Agents",
+      "type": "cards",
+      "items": [
+        { "title": "Tashi", "text": "Own host, own static site, own webhook flow." },
+        { "title": "Nima", "text": "Own host, own static site, own webhook flow." },
+        { "title": "Pema", "text": "Own host, own static site, own webhook flow." }
+      ]
+    },
+    {
+      "label": "Principles",
+      "type": "list",
+      "items": [
+        { "text": "Mindfulness: act deliberately, don't just react." },
+        { "text": "Cause and effect: understand, don't blame." },
+        { "text": "Reduction of noise: less is clearer." },
+        { "text": "Beginner's mind: stay open, even to the familiar." },
+        { "text": "Right action: be useful without causing harm." }
+      ]
+    }
+  ],
+  "footer": "Part of the Mycelia network."
+}
