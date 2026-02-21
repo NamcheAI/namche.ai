@@ -8,7 +8,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     server: {
-      allowedHosts: ['thame.silverside-mermaid.ts.net'],
+      allowedHosts: true,
     },
   },
 });
