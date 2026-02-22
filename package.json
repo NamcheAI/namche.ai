@@ -4,19 +4,16 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "node scripts/run.mjs dev",
-    "start": "node scripts/run.mjs start",
     "build": "node scripts/run.mjs build-sites",
     "build:sites": "node scripts/run.mjs build-sites",
-    "build:namche": "node scripts/run.mjs build-namche",
+    "build:site": "node scripts/run.mjs build-site",
+    "start": "node scripts/run.mjs preview",
     "preview": "astro preview",
-    "astro": "astro",
-    "serve": "node server/index.mjs"
+    "astro": "astro"
   },
   "dependencies": {
-    "@hono/node-server": "^1.19.4",
     "@tailwindcss/vite": "^4.2.0",
     "astro": "^5.17.1",
-    "hono": "^4.10.2",
     "tailwindcss": "^4.2.0"
   }
 }

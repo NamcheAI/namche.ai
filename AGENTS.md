@@ -28,14 +28,14 @@ Logos built on the 3x3 block grid. Fonts: Inter / Ginto Nord / Space Mono.
 ## Structure
 
 ```
-/              — main homepage, overview
-/docs/examples  — per-agent env + host config examples
-/docs/deploy    — launchctl template
-/server        — host-based Hono gateway (static serving + webhooks)
+/      — main Astro site generator (all four sites)
+/src   — Astro source (layouts, components, pages)
+/docs  — styleguide and logos
 ```
 
-`namche.ai` itself serves only `/`.
-Gateway behavior can be host-based multi-site or one-site-per-machine via config.
+Webhook ingress/proxy is in a separate repository:
+
+- `https://github.com/NamcheAI/webhook-proxy`
 
 ## Git Workflow
 
@@ -56,12 +56,11 @@ All completed work must go through the `codex/` branch and PR workflow above.
 
 ## Technology
 
-- Astro (static site generator for `namche.ai` main page)
+- Astro (static site generator for `namche`, `tashi`, `nima`, `pema`)
 - Tailwind CSS (styling for `src/` pages/components)
-- Hono (single gateway server in `server/` for host-based static serving + webhooks)
 - Deployment: TBD
 - Domain: namche.ai
-- Unified runner: `npm run dev -- --target namche` or `npm start -- --target gateway`
+- Unified runner: `npm run dev -- --site namche`
 
 ## Tone
 
@@ -73,8 +72,5 @@ All completed work must go through the `codex/` branch and PR workflow above.
 ## Files
 
 - `docs/STYLEGUIDE.md` — colors, typography, logo construction
-- `docs/examples/` — env and host-config examples per agent
-- `docs/deploy/` — launchctl templates
 - `docs/logos/` — SVG logos (symbol, wordmark, favicon, tashi)
 - `src/` — Astro renderer source (shared templates/layouts and per-site Astro pages)
-- `server/` — host-based Hono gateway
