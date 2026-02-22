@@ -7,7 +7,7 @@ Named after Namche Bazaar, the gateway to the Himalayas.
 
 ## Language
 
-Everything in this project is in English. Code, content, documentation, commit messages.
+Everything in this project is in English: code, content, docs, commit messages.
 
 ## Principles
 
@@ -21,46 +21,66 @@ Buddhist-inspired, not religious:
 
 ## Brand
 
-Follows the Mycelia brand system (see docs/STYLEGUIDE.md).
+Follows the Mycelia brand system (`docs/STYLEGUIDE.md`).
 Color palette: Slate (primary) + Amber (secondary).
 Logos built on the 3x3 block grid. Fonts: Inter / Ginto Nord / Space Mono.
 
-## Structure
+## Scope
 
-```
-/      — main Astro site generator (all four sites)
-/src   — Astro source (layouts, components, pages)
-/docs  — styleguide and logos
-```
+This repository contains only the Astro static site generator for:
 
-Webhook ingress/proxy is in a separate repository:
+- `namche.ai`
+- `tashi.namche.ai`
+- `nima.namche.ai`
+- `pema.namche.ai`
+
+Webhook proxy is maintained separately:
 
 - `https://github.com/NamcheAI/webhook-proxy`
 
+## Structure
+
+- `src/` — Astro source (layouts, components, pages)
+- `scripts/build-sites.mjs` — build all four sites into `dist/sites/<site>`
+- `.github/workflows/deploy.yaml` — CI deploy workflow to `bertrand.batlogg.com`
+- `docs/STYLEGUIDE.md` — design and brand system
+- `docs/logos/` — logo assets
+
 ## Git Workflow
 
-1. Always `git pull origin main` before starting work
-2. Create a feature branch with `codex/` prefix (`git checkout -b codex/<branch-name>`)
-3. Once a task is completed, commit and push to the branch
-4. Open or update a pull request on GitHub (`gh pr create`)
-5. Jodok reviews, requests changes, and leaves comments as needed
-6. Address review feedback on the same `codex/` branch and push updates
-7. Merge to `main` only after Jodok explicitly approves the PR
+1. Always `git pull origin main` before starting work.
+2. Create a feature branch with prefix `codex/`.
+3. Commit and push to that branch.
+4. Open or update a PR.
+5. Address review feedback on the same branch.
+6. Merge only after explicit approval.
 
-Never commit directly to main.
+Never commit directly to `main`.
 
 ## Development
 
-Use OpenAI Codex on the local machine for coding tasks.
-All completed work must go through the `codex/` branch and PR workflow above.
+- Dev server: `npm run dev -- --site namche`
+- Build all sites: `npm run build:sites`
+- Build single site: `npm run build:site -- --site tashi`
+- Preview build: `npm start`
 
-## Technology
+## Deployment
 
-- Astro (static site generator for `namche`, `tashi`, `nima`, `pema`)
-- Tailwind CSS (styling for `src/` pages/components)
-- Deployment: TBD
-- Domain: namche.ai
-- Unified runner: `npm run dev -- --site namche`
+On each push/merge to `main`, GitHub Actions builds all sites and deploys via SSH/rsync to:
+
+- `/var/www/html/namche.ai`
+- `/var/www/html/tashi.namche.ai`
+- `/var/www/html/nima.namche.ai`
+- `/var/www/html/pema.namche.ai`
+
+Target directories must already exist and be writable by the deploy user.
+
+Required GitHub secrets:
+
+- `DEPLOY_USER`
+- `DEPLOY_SSH_KEY`
+- `DEPLOY_KNOWN_HOSTS`
+- `DEPLOY_PORT` (optional, defaults to `22`)
 
 ## Tone
 
@@ -68,9 +88,3 @@ All completed work must go through the `codex/` branch and PR workflow above.
 - No marketing speak
 - No pathos, no emojis
 - Substance over style
-
-## Files
-
-- `docs/STYLEGUIDE.md` — colors, typography, logo construction
-- `docs/logos/` — SVG logos (symbol, wordmark, favicon, tashi)
-- `src/` — Astro renderer source (shared templates/layouts and per-site Astro pages)
