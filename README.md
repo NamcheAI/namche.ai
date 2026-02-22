@@ -2,13 +2,17 @@
 
 Central hub for Jodok Batlogg's AI work.
 
-## Architecture
+This repository is split into two services:
 
-- `src/layouts/` -> shared Astro layouts
-- `src/components/pages/` -> per-site Astro page content (`namche`, `tashi`, `nima`, `pema`)
-- `src/pages/` -> entry routes (`/` and `/agents/<site>`)
-- `server/` -> single Hono gateway (host-based static serving + webhooks)
-- `docs/examples/` -> per-agent env + host config examples
+1. Site Generator (Astro) - builds static output for `namche`, `tashi`, `nima`, `pema`
+2. API Proxy (Hono) - runs on `api.namche.ai` and forwards webhooks to agent hosts via Tailscale
+
+## Project Layout
+
+- `src/` -> Astro pages, layouts, and components for all sites
+- `scripts/build-sites.mjs` -> loops all site builds into `dist/sites/<site>`
+- `api-proxy/` -> Hono webhook proxy service
+- `docs/examples/` -> env and proxy config examples
 - `docs/deploy/` -> launchctl template
 
 ## Quick Start
@@ -19,49 +23,52 @@ Install dependencies:
 npm install
 ```
 
-Run any site in dev mode:
+Run Astro dev for a specific site:
 
 ```bash
-npm run dev -- --target namche --site namche
-npm run dev -- --target namche --site tashi
+npm run dev -- --target site-generator --site namche
+npm run dev -- --target site-generator --site tashi
 ```
 
-In dev mode, preview individual site pages at:
-
-- `/agents/namche`
-- `/agents/tashi`
-- `/agents/nima`
-- `/agents/pema`
-
-Build all four static sites:
+Build all static sites:
 
 ```bash
 npm run build:sites
 ```
 
-Run gateway:
+Build one site only:
 
 ```bash
-npm start -- --target gateway
+npm run build:site -- --site pema
 ```
 
-## Site Selection
-
-`NAMCHE_SITE` selects which Astro page is rendered at `/` during a build/run:
-
-- `namche`
-- `tashi`
-- `nima`
-- `pema`
-
-Examples:
+Run API proxy:
 
 ```bash
-npm run build:namche -- --site tashi
-npm run build:namche -- --site pema
+npm start -- --target api-proxy
 ```
 
-## launchctl (Single Template)
+## API Proxy
+
+Webhook ingress route:
+
+- `POST /webhooks/:agent/:source`
+
+Example:
+
+- `POST https://api.namche.ai/webhooks/tashi/github`
+
+Proxy config:
+
+- default file: `api-proxy/routes.config.json`
+- override: `NAMCHE_PROXY_CONFIG=/path/to/routes.config.json`
+
+Use examples:
+
+- `docs/examples/proxy-config/routes.config.json.example`
+- `docs/examples/env/api-proxy.env.example`
+
+## launchctl Template
 
 Template:
 
@@ -70,19 +77,6 @@ Template:
 Replace placeholders:
 
 - `__WORKDIR__` -> absolute repo path
-- `__AGENT__` -> `tashi`, `nima`, or `pema`
-- `__ENV_FILE__` -> absolute path to runtime env file
-- `__HOST_CONFIG__` -> absolute path to gateway host config file
-
-Create concrete plist:
-
-```bash
-cp docs/deploy/ai.namche.agent.plist.template docs/deploy/ai.namche.<agent>.plist
-```
-
-Install in user space:
-
-```bash
-cp docs/deploy/ai.namche.<agent>.plist ~/Library/LaunchAgents/
-launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.namche.<agent>.plist
-```
+- `__AGENT__` -> service label suffix
+- `__ENV_FILE__` -> absolute env file path
+- `__PROXY_CONFIG__` -> absolute routes config file path

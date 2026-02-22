@@ -7,10 +7,10 @@
     "start": "node scripts/run.mjs start",
     "build": "node scripts/run.mjs build-sites",
     "build:sites": "node scripts/run.mjs build-sites",
-    "build:namche": "node scripts/run.mjs build-namche",
+    "build:site": "node scripts/run.mjs build-site",
     "preview": "astro preview",
     "astro": "astro",
-    "serve": "node server/index.mjs"
+    "serve": "node api-proxy/index.mjs"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.4",

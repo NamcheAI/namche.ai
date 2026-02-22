@@ -10,7 +10,7 @@
   <array>
     <string>/opt/homebrew/bin/node</string>
     <string>--env-file=__ENV_FILE__</string>
-    <string>__WORKDIR__/server/index.mjs</string>
+    <string>__WORKDIR__/api-proxy/index.mjs</string>
   </array>
 
   <key>WorkingDirectory</key>
@@ -20,8 +20,8 @@
   <dict>
     <key>NODE_ENV</key>
     <string>production</string>
-    <key>NAMCHE_HOST_CONFIG</key>
-    <string>__HOST_CONFIG__</string>
+    <key>NAMCHE_PROXY_CONFIG</key>
+    <string>__PROXY_CONFIG__</string>
   </dict>
 
   <key>RunAtLoad</key>

@@ -5,12 +5,12 @@ import { spawn, spawnSync } from 'node:child_process';
 const mode = process.argv[2] ?? 'dev';
 const args = process.argv.slice(3);
 
-const VALID_MODES = new Set(['dev', 'start', 'build-sites', 'build-namche']);
-const VALID_TARGETS = new Set(['namche', 'gateway']);
+const VALID_MODES = new Set(['dev', 'start', 'build-sites', 'build-site']);
+const VALID_TARGETS = new Set(['site-generator', 'api-proxy']);
 const VALID_SITES = new Set(['namche', 'tashi', 'nima', 'pema']);
 
 if (!VALID_MODES.has(mode)) {
-  console.error(`Invalid mode: ${mode}. Use one of: dev, start, build-sites, build-namche.`);
+  console.error(`Invalid mode: ${mode}. Use one of: dev, start, build-sites, build-site.`);
   process.exit(1);
 }
 
@@ -57,12 +57,12 @@ function run(command, commandArgs, extraEnv = {}) {
 }
 
 const config = loadConfig();
-const defaultTarget = mode === 'dev' ? 'namche' : 'gateway';
+const defaultTarget = mode === 'dev' ? 'site-generator' : 'api-proxy';
 const target = parseCliArg('target') ?? process.env.NAMCHE_TARGET ?? config.target ?? defaultTarget;
 const site = parseCliArg('site') ?? process.env.NAMCHE_SITE ?? config.site ?? 'namche';
 
 if (!VALID_TARGETS.has(target)) {
-  console.error(`Invalid target: ${target}. Use one of: namche, gateway.`);
+  console.error(`Invalid target: ${target}. Use one of: site-generator, api-proxy.`);
   process.exit(1);
 }
 
@@ -87,7 +87,7 @@ if (mode === 'build-sites') {
   process.exit(result.status ?? 1);
 }
 
-if (mode === 'build-namche') {
+if (mode === 'build-site') {
   const result = spawnSync('npx', ['astro', 'build', ...passThroughArgs], {
     stdio: 'inherit',
     env: {
@@ -98,7 +98,7 @@ if (mode === 'build-namche') {
   process.exit(result.status ?? 1);
 }
 
-if (target === 'namche') {
+if (target === 'site-generator') {
   if (mode === 'dev') {
     run('npx', ['astro', 'dev', '--host', '0.0.0.0', '--port', '4321', ...passThroughArgs], {
       NAMCHE_SITE: site,
@@ -108,16 +108,17 @@ if (target === 'namche') {
   }
 } else {
   const extraEnv = {};
-  const cfg = config.gateway ?? {};
+  const cfg = config.apiProxy ?? {};
+
   if (!process.env.PORT && cfg.port) {
     extraEnv.PORT = String(cfg.port);
   }
   if (!process.env.HOST && cfg.host) {
     extraEnv.HOST = String(cfg.host);
   }
-  if (!process.env.NAMCHE_HOST_CONFIG && cfg.configPath) {
-    extraEnv.NAMCHE_HOST_CONFIG = String(cfg.configPath);
+  if (!process.env.NAMCHE_PROXY_CONFIG && cfg.configPath) {
+    extraEnv.NAMCHE_PROXY_CONFIG = String(cfg.configPath);
   }
 
-  run('node', ['server/index.mjs', ...passThroughArgs], extraEnv);
+  run('node', ['api-proxy/index.mjs', ...passThroughArgs], extraEnv);
 }
