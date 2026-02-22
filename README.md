@@ -80,7 +80,12 @@ Important:
 
 Required repository secrets:
 
-- `DEPLOY_USER`
 - `DEPLOY_SSH_KEY`
+
+Required repository variables:
+
 - `DEPLOY_KNOWN_HOSTS` (from `ssh-keyscan bertrand.batlogg.com`)
-- `DEPLOY_PORT` (optional, default `22`)
+
+Deployment uses hardcoded SSH settings:
+
+- user: `deploy`

@@ -39,7 +39,7 @@ jobs:
 
       - name: Setup known_hosts
         env:
-          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          DEPLOY_KNOWN_HOSTS: ${{ vars.DEPLOY_KNOWN_HOSTS }}
         run: |
           mkdir -p ~/.ssh
           printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
@@ -48,11 +48,8 @@ jobs:
       - name: Deploy all sites
         env:
           DEPLOY_HOST: bertrand.batlogg.com
-          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
-          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
           DEPLOY_BASE_DIR: /var/www/html
         run: |
-          PORT="${DEPLOY_PORT:-22}"
           declare -A TARGETS=(
             [namche]="namche.ai"
             [tashi]="tashi.namche.ai"
@@ -62,6 +59,6 @@ jobs:
 
           for SITE in "${!TARGETS[@]}"; do
             DOMAIN_DIR="${TARGETS[$SITE]}"
-            rsync -az --delete -e "ssh -i ~/.ssh/id_ed25519 -p $PORT" \
-              "dist/sites/$SITE/" "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_BASE_DIR/$DOMAIN_DIR/"
+            rsync -az --delete -e "ssh -i ~/.ssh/id_ed25519" \
+              "dist/sites/$SITE/" "deploy@$DEPLOY_HOST:$DEPLOY_BASE_DIR/$DOMAIN_DIR/"
           done
