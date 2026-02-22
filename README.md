@@ -88,5 +88,5 @@ Required repository variables:
 
 Deployment uses hardcoded SSH settings:
 
-- user: `DEPLOY`
+- user: `deploy`
 - port: `22`
