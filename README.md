@@ -1,26 +1,17 @@
 # namche.ai
 
-Central hub for Jodok Batlogg's AI work.
+Astro static site generator for:
 
-This repository now contains only the Astro site generator for:
+- `namche.ai`
+- `tashi.namche.ai`
+- `nima.namche.ai`
+- `pema.namche.ai`
 
-- `namche`
-- `tashi`
-- `nima`
-- `pema`
-
-Webhook proxy functionality was moved to:
+Webhook routing/proxy is in a separate repository:
 
 - `https://github.com/NamcheAI/webhook-proxy`
 
-## Architecture
-
-- `src/layouts/` -> shared Astro layouts
-- `src/components/pages/` -> per-site Astro page content
-- `src/pages/` -> routes (`/` and `/agents/<site>`)
-- `scripts/build-sites.mjs` -> builds all four static sites
-
-## Quick Start
+## Local Development
 
 Install dependencies:
 
@@ -28,12 +19,16 @@ Install dependencies:
 npm install
 ```
 
-Run dev for a specific site:
+Run dev server for one site variant:
 
 ```bash
 npm run dev -- --site namche
 npm run dev -- --site tashi
+npm run dev -- --site nima
+npm run dev -- --site pema
 ```
+
+## Build
 
 Build all sites:
 
@@ -44,37 +39,48 @@ npm run build:sites
 Build one site:
 
 ```bash
-npm run build:site -- --site pema
+npm run build:site -- --site tashi
 ```
 
-Preview a built site:
+Build output:
+
+- `dist/sites/namche`
+- `dist/sites/tashi`
+- `dist/sites/nima`
+- `dist/sites/pema`
+
+Preview build:
 
 ```bash
 npm start
 ```
 
-## Site Selection
+## CI Deploy
 
-`NAMCHE_SITE` selects which site is rendered at `/` during dev/build.
+Workflow:
 
-## Auto Deploy
+- `.github/workflows/deploy.yaml`
 
-On each merge/push to `main`, GitHub Actions builds all four sites and deploys to:
+Trigger:
+
+- each push to `main`
+- manual dispatch from Actions tab
+
+Deployment target on `bertrand.batlogg.com`:
 
 - `/var/www/html/namche.ai`
 - `/var/www/html/tashi.namche.ai`
 - `/var/www/html/nima.namche.ai`
 - `/var/www/html/pema.namche.ai`
 
-Workflow:
+Important:
 
-- `.github/workflows/deploy.yaml`
+- target directories must already exist
+- deploy user must have write permission to those directories
 
 Required repository secrets:
 
-- `DEPLOY_USER` (SSH user on `bertrand.batlogg.com`)
-- `DEPLOY_SSH_KEY` (private key for that user)
-- `DEPLOY_KNOWN_HOSTS` (output of `ssh-keyscan bertrand.batlogg.com`)
-- `DEPLOY_PORT` (optional, defaults to `22`)
-
-Deployment assumes these target directories already exist and are writable by `DEPLOY_USER`.
+- `DEPLOY_USER`
+- `DEPLOY_SSH_KEY`
+- `DEPLOY_KNOWN_HOSTS` (from `ssh-keyscan bertrand.batlogg.com`)
+- `DEPLOY_PORT` (optional, default `22`)
