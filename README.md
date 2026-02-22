@@ -76,3 +76,5 @@ Required repository secrets:
 - `DEPLOY_SSH_KEY` (private key for that user)
 - `DEPLOY_KNOWN_HOSTS` (output of `ssh-keyscan bertrand.batlogg.com`)
 - `DEPLOY_PORT` (optional, defaults to `22`)
+
+Deployment assumes these target directories already exist and are writable by `DEPLOY_USER`.
