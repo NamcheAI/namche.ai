@@ -56,3 +56,23 @@ npm start
 ## Site Selection
 
 `NAMCHE_SITE` selects which site is rendered at `/` during dev/build.
+
+## Auto Deploy
+
+On each merge/push to `main`, GitHub Actions builds all four sites and deploys to:
+
+- `/var/www/html/namche.ai`
+- `/var/www/html/tashi.namche.ai`
+- `/var/www/html/nima.namche.ai`
+- `/var/www/html/pema.namche.ai`
+
+Workflow:
+
+- `.github/workflows/deploy.yaml`
+
+Required repository secrets:
+
+- `DEPLOY_USER` (SSH user on `bertrand.batlogg.com`)
+- `DEPLOY_SSH_KEY` (private key for that user)
+- `DEPLOY_KNOWN_HOSTS` (output of `ssh-keyscan bertrand.batlogg.com`)
+- `DEPLOY_PORT` (optional, defaults to `22`)

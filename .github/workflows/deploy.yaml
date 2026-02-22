@@ -1,42 +1,78 @@
-name: Deploy to GitHub Pages
+name: Deploy Static Sites to Bertrand
 
 on:
-  # Trigger the workflow every time you push to the `main` branch
-  # Using a different branch name? Replace `main` with your branch’s name
   push:
-    branches: [ main ]
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
+    branches:
+      - main
   workflow_dispatch:
 
-# Allow this job to clone the repo and create a page deployment
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+concurrency:
+  group: deploy-bertrand-main
+  cancel-in-progress: true
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v5
-      - name: Install, build, and upload your site
-        uses: withastro/action@v5
-        # with:
-          # path: . # The root location of your Astro project inside the repository. (optional)
-          # node-version: 24 # The specific version of Node that should be used to build your site. Defaults to 22. (optional)
-          # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
-          # build-cmd: pnpm run build # The command to run to build your site. Runs the package build script/task by default. (optional)
-        # env:
-          # PUBLIC_POKEAPI: 'https://pokeapi.co/api/v2' # Use single quotation marks for the variable value. (optional)
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build all static sites
+        run: npm run build:sites
+
+      - name: Setup SSH key
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+      - name: Setup known_hosts
+        env:
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Ensure target directories exist
+        env:
+          DEPLOY_HOST: bertrand.batlogg.com
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_BASE_DIR: /var/www/html
+        run: |
+          PORT="${DEPLOY_PORT:-22}"
+          ssh -i ~/.ssh/id_ed25519 -p "$PORT" "$DEPLOY_USER@$DEPLOY_HOST" \
+            "mkdir -p \"$DEPLOY_BASE_DIR/namche.ai\" \"$DEPLOY_BASE_DIR/tashi.namche.ai\" \"$DEPLOY_BASE_DIR/nima.namche.ai\" \"$DEPLOY_BASE_DIR/pema.namche.ai\""
+
+      - name: Deploy all sites
+        env:
+          DEPLOY_HOST: bertrand.batlogg.com
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_BASE_DIR: /var/www/html
+        run: |
+          PORT="${DEPLOY_PORT:-22}"
+          declare -A TARGETS=(
+            [namche]="namche.ai"
+            [tashi]="tashi.namche.ai"
+            [nima]="nima.namche.ai"
+            [pema]="pema.namche.ai"
+          )
+
+          for SITE in "${!TARGETS[@]}"; do
+            DOMAIN_DIR="${TARGETS[$SITE]}"
+            rsync -az --delete -e "ssh -i ~/.ssh/id_ed25519 -p $PORT" \
+              "dist/sites/$SITE/" "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_BASE_DIR/$DOMAIN_DIR/"
+          done
