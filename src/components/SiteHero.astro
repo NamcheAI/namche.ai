@@ -8,18 +8,42 @@ interface Props {
 const { eyebrow, headline, tagline } = Astro.props;
 ---
 
-<section class="hero">
-  <div class="hero-grid">
-    <div class="hero-copy">
-      <p class="kicker">{eyebrow}</p>
-      <h1 class="hero-title">{headline}</h1>
-      <p class="hero-tagline">{tagline}</p>
+<section class="hero-board">
+  <article class="board-tile big">
+    <div class="tile-layer soft"></div>
+    <div class="shape-quarter"></div>
+    <div class="tile-content">
+      <p class="tile-kicker">{eyebrow}</p>
+      <h1 class="tile-title">{headline}</h1>
+      <p class="tile-text">{tagline}</p>
     </div>
-    <div class="hero-art" aria-hidden="true">
-      <div class="block b1"></div>
-      <div class="block soft b2 round-left"></div>
-      <div class="block fade b3 round-right"></div>
-      <div class="block b4"></div>
+  </article>
+
+  <article class="board-tile side">
+    <div class="tile-layer blend"></div>
+    <div class="shape-half"></div>
+    <div class="tile-content">
+      <p class="tile-kicker invert">namche system</p>
+      <h2 class="tile-title invert">from idea to ship</h2>
+      <p class="tile-text invert">One visual language, four sites, one build pipeline.</p>
     </div>
-  </div>
+  </article>
+
+  <article class="board-tile small">
+    <div class="tile-layer primary"></div>
+    <div class="shape-orb"></div>
+    <div class="tile-content">
+      <p class="tile-kicker invert">design mode</p>
+      <h2 class="tile-title invert" style="font-size:clamp(1.8rem,4.2vw,3rem);">organic + technical</h2>
+    </div>
+  </article>
+
+  <article class="board-tile wide">
+    <div class="tile-layer soft"></div>
+    <div class="shape-quarter" style="left:0; right:auto; border-bottom-left-radius:0; border-bottom-right-radius:100%;"></div>
+    <div class="tile-content">
+      <p class="tile-kicker">agent pages</p>
+      <h2 class="tile-title" style="font-size:clamp(2rem,5vw,3.8rem); max-width:12ch;">campaign energy, consistent system</h2>
+    </div>
+  </article>
 </section>
