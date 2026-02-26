@@ -9,15 +9,17 @@ const { eyebrow, headline, tagline } = Astro.props;
 ---
 
 <section class="hero">
-  <div class="hero-inner">
-    <p class="hero-meta">{eyebrow}</p>
-    <h1 class="hero-title">{headline}</h1>
-    <p class="hero-tagline">{tagline}</p>
-    <div class="hero-shape" aria-hidden="true">
-      <div class="hero-block"></div>
-      <div class="hero-block round"></div>
-      <div class="hero-block round"></div>
-      <div class="hero-block"></div>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="kicker">{eyebrow}</p>
+      <h1 class="hero-title">{headline}</h1>
+      <p class="hero-tagline">{tagline}</p>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="block b1"></div>
+      <div class="block soft b2 round-left"></div>
+      <div class="block fade b3 round-right"></div>
+      <div class="block b4"></div>
     </div>
   </div>
 </section>

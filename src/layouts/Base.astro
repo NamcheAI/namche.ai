@@ -22,9 +22,9 @@ const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   </head>
   <body data-site={siteId}>
-    <div class="site-frame">
+    <div class="site">
       <header class="chrome">
-        <a href="/" class="brand-link">
+        <a href="/" class="brand">
           <svg viewBox="0 0 280 280" fill="currentColor" aria-hidden="true">
             <rect x="10" y="10" width="80" height="80"/>
             <rect x="10" y="100" width="80" height="80"/>
@@ -34,8 +34,14 @@ const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel 
             <rect x="190" y="100" width="80" height="80"/>
             <rect x="190" y="190" width="80" height="80"/>
           </svg>
-          <span class="brand-label">{brandLabel}</span>
+          <span>{brandLabel}</span>
         </a>
+        <nav class="top-nav">
+          <a href="/agents/namche">namche</a>
+          <a href="/agents/tashi">tashi</a>
+          <a href="/agents/nima">nima</a>
+          <a href="/agents/pema">pema</a>
+        </nav>
       </header>
 
       <main class="main">
@@ -43,10 +49,8 @@ const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel 
       </main>
 
       <footer class="foot">
-        <div class="foot-inner">
-          <p>
-            Built by <a href="https://tashi.namche.ai">Tashi 🐐</a> - powered by OpenClawd 🦀
-          </p>
+        <div class="foot-row">
+          <p>Built by <a href="https://tashi.namche.ai">Tashi 🐐</a> - powered by OpenClawd 🦀</p>
           <a href="https://batlogg.com">BTLG</a>
         </div>
       </footer>
