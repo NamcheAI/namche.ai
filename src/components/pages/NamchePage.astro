@@ -1,20 +1,20 @@
-<section class="panel-grid">
-  <article class="panel span-8">
-    <div class="panel-head"><p class="tag">agents</p></div>
-    <div class="panel-body">
-      <h2>One architecture. Four distinct identities.</h2>
-      <p>This project now calls them <strong>agents</strong>. No bots. Each agent has dedicated content, domain, and operating context.</p>
-      <div class="micro-grid cols-3">
-        <article class="micro"><h4>Tashi</h4><p>Strategic sparring and execution in Jodok's tone.</p></article>
-        <article class="micro"><h4>Nima</h4><p>Independent agent site and deployment target.</p></article>
-        <article class="micro"><h4>Pema</h4><p>Independent agent site and deployment target.</p></article>
+<div class="flow">
+  <section class="section">
+    <div class="section-head"><p class="tag">agents</p></div>
+    <div class="section-body">
+      <h2>One system, four agents.</h2>
+      <p>Namche is the parent site. Tashi, Nima, and Pema are dedicated agent properties with separate deployment targets.</p>
+      <div class="grid cols-3">
+        <article class="card"><h3>Tashi</h3><p>Strategic execution partner for Jodok.</p></article>
+        <article class="card"><h3>Nima</h3><p>Independent agent site in the shared design language.</p></article>
+        <article class="card"><h3>Pema</h3><p>Independent agent site in the shared design language.</p></article>
       </div>
     </div>
-  </article>
+  </section>
 
-  <article class="panel span-4">
-    <div class="panel-head"><p class="tag">principles</p></div>
-    <div class="panel-body">
+  <section class="section">
+    <div class="section-head"><p class="tag">principles</p></div>
+    <div class="section-body">
       <div class="list" style="margin-top:0;">
         <div class="row">Mindfulness</div>
         <div class="row">Cause and effect</div>
@@ -23,25 +23,5 @@
         <div class="row">Right action</div>
       </div>
     </div>
-  </article>
-
-  <article class="panel span-12">
-    <div class="panel-head"><p class="tag">delivery model</p></div>
-    <div class="panel-body">
-      <div class="micro-grid cols-3" style="margin-top:0;">
-        <article class="micro">
-          <h4>build</h4>
-          <p>`npm run build:sites` generates four static outputs under `dist/sites/*`.</p>
-        </article>
-        <article class="micro">
-          <h4>deploy</h4>
-          <p>GitHub Actions syncs each output to its own vhost directory on `bertrand.batlogg.com`.</p>
-        </article>
-        <article class="micro">
-          <h4>webhooks</h4>
-          <p>Handled by the separate `webhook-proxy` repo and dispatched to agents.</p>
-        </article>
-      </div>
-    </div>
-  </article>
-</section>
+  </section>
+</div>
