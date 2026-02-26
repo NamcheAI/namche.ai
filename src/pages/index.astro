@@ -1,28 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
-import SiteHero from '../components/SiteHero.astro';
-import NamchePage from '../components/pages/NamchePage.astro';
-import TashiPage from '../components/pages/TashiPage.astro';
-import NimaPage from '../components/pages/NimaPage.astro';
-import PemaPage from '../components/pages/PemaPage.astro';
-import { resolveSiteId, SITE_META } from '../lib/sites';
+import { resolveSiteId, SITES } from '../sites';
 
 const siteId = resolveSiteId();
-const meta = SITE_META[siteId];
-
-const PageComponent =
-  siteId === 'tashi' ? TashiPage :
-  siteId === 'nima' ? NimaPage :
-  siteId === 'pema' ? PemaPage :
-  NamchePage;
+const { meta, component: SitePage } = SITES[siteId];
 ---
 
-<Base
-  title={meta.title}
-  description={meta.description}
-  brandLabel={meta.brandLabel ?? meta.hero.headline}
-  siteId={siteId}
->
-  <SiteHero eyebrow={meta.hero.eyebrow} headline={meta.hero.headline} tagline={meta.hero.tagline} />
-  <PageComponent />
+<Base title={meta.title} description={meta.description} brandLabel={meta.brandLabel} siteId={siteId}>
+  <SitePage />
 </Base>

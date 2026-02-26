@@ -15,6 +15,25 @@ Brand reference:
 
 - `docs/Mycelia Styleguide v0.1.pdf`
 
+## Editing Content
+
+All site content now lives in one place per site:
+
+- `src/sites/namche.astro`
+- `src/sites/tashi.astro`
+- `src/sites/nima.astro`
+- `src/sites/pema.astro`
+
+Each file contains both:
+
+- page metadata (`title`, `description`, `brandLabel`)
+- full page markup/content
+
+Shared rendering shell:
+
+- `src/layouts/Base.astro`
+- `src/styles/global.css`
+
 ## Local Development
 
 Install dependencies:

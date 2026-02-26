@@ -43,11 +43,18 @@ const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel 
             </svg>
             <span>{brandLabel}</span>
           </a>
-          <nav class="pill-nav">
-            <a href="/agents/namche">namche</a>
-            <a href="/agents/tashi">tashi</a>
-            <a href="/agents/nima">nima</a>
-            <a href="/agents/pema">pema</a>
+          <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="top-nav">
+            <span class="nav-toggle-line" aria-hidden="true"></span>
+            <span class="nav-toggle-line" aria-hidden="true"></span>
+            <span class="nav-toggle-line" aria-hidden="true"></span>
+          </button>
+          <nav id="top-nav" class="pill-nav">
+            <a class:list={{ "is-active": siteId === 'namche' }} href="/agents/namche">Namche AI</a>
+            <span class="pill-group">
+              <a class:list={{ "is-active": siteId === 'tashi' }} href="/agents/tashi" aria-label="Tashi"><span class="emoji emoji-mountain">🏔️</span></a>
+              <a class:list={{ "is-active": siteId === 'pema' }} href="/agents/pema" aria-label="Pema"><span class="emoji emoji-lotus">🪷</span></a>
+              <a class:list={{ "is-active": siteId === 'nima' }} href="/agents/nima" aria-label="Nima"><span class="emoji emoji-sun">☀️</span></a>
+            </span>
           </nav>
         </header>
       </div>
@@ -58,11 +65,22 @@ const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel 
 
       <footer>
         <div class="footer-line">
-          <p>Built by <a href="https://tashi.namche.ai">Tashi 🐐</a> - powered by OpenClawd 🦀</p>
+          <p>Built by <a href="https://tashi.namche.ai">Tashi <span class="emoji emoji-mountain">🏔️</span></a></p>
           <a href="https://batlogg.com">BTLG</a>
         </div>
       </footer>
     </div>
+    <script>
+      const toggle = document.querySelector('.nav-toggle');
+      const nav = document.querySelector('#top-nav');
+      if (toggle && nav) {
+        toggle.addEventListener('click', () => {
+          const expanded = toggle.getAttribute('aria-expanded') === 'true';
+          toggle.setAttribute('aria-expanded', String(!expanded));
+          nav.classList.toggle('is-open', !expanded);
+        });
+      }
+    </script>
   </body>
 </html>
 
