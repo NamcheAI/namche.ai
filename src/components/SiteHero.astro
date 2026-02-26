@@ -9,41 +9,22 @@ const { eyebrow, headline, tagline } = Astro.props;
 ---
 
 <section class="hero-board">
-  <article class="board-tile big">
-    <div class="tile-layer soft"></div>
-    <div class="shape-quarter"></div>
-    <div class="tile-content">
-      <p class="tile-kicker">{eyebrow}</p>
-      <h1 class="tile-title">{headline}</h1>
-      <p class="tile-text">{tagline}</p>
+  <article class="poster main">
+    <div class="geo-a"></div>
+    <div class="geo-b"></div>
+    <div class="poster-content">
+      <p class="poster-kicker">{eyebrow}</p>
+      <h1 class="poster-title">{headline}</h1>
+      <p class="poster-text">{tagline}</p>
     </div>
   </article>
 
-  <article class="board-tile side">
-    <div class="tile-layer blend"></div>
-    <div class="shape-half"></div>
-    <div class="tile-content">
-      <p class="tile-kicker invert">namche system</p>
-      <h2 class="tile-title invert">from idea to ship</h2>
-      <p class="tile-text invert">One visual language, four sites, one build pipeline.</p>
-    </div>
-  </article>
-
-  <article class="board-tile small">
-    <div class="tile-layer primary"></div>
-    <div class="shape-orb"></div>
-    <div class="tile-content">
-      <p class="tile-kicker invert">design mode</p>
-      <h2 class="tile-title invert" style="font-size:clamp(1.8rem,4.2vw,3rem);">organic + technical</h2>
-    </div>
-  </article>
-
-  <article class="board-tile wide">
-    <div class="tile-layer soft"></div>
-    <div class="shape-quarter" style="left:0; right:auto; border-bottom-left-radius:0; border-bottom-right-radius:100%;"></div>
-    <div class="tile-content">
-      <p class="tile-kicker">agent pages</p>
-      <h2 class="tile-title" style="font-size:clamp(2rem,5vw,3.8rem); max-width:12ch;">campaign energy, consistent system</h2>
+  <article class="poster side">
+    <div class="geo-c"></div>
+    <div class="poster-content">
+      <p class="poster-kicker">agent system</p>
+      <h2 class="poster-title">pure geometric</h2>
+      <p class="poster-text">Shared structure, per-agent palette, whitespace-first composition.</p>
     </div>
   </article>
 </section>
