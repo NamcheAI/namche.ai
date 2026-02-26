@@ -21,6 +21,12 @@ body[data-site="pema"] { --primary: #852525; --secondary: #ff962f; --soft: #fad3
 html, body { margin: 0; padding: 0; }
 body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.5; }
 
+.emoji {
+  display: inline-block;
+  vertical-align: -0.08em;
+  line-height: 1;
+}
+
 .site { min-height: 100vh; position: relative; overflow: hidden; }
 .page-forms { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
 .form { position: absolute; }
