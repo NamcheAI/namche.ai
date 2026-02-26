@@ -1,15 +1,20 @@
-<section class="py-10 md:py-14">
-  <div class="section-label">Scope</div>
-  <div class="mt-6 space-y-4 rounded-xl border border-line bg-panel/75 p-5 md:p-6">
-    <p class="text-sm leading-relaxed text-ink-muted">Nima runs as a distinct static site generated from this Astro codebase.</p>
-  </div>
-</section>
+<div class="flow">
+  <section class="section">
+    <div class="section-head"><p class="tag">agent</p></div>
+    <div class="section-body">
+      <h2>Nima</h2>
+      <p>Independent agent page, same visual system, separate publishing target and lifecycle.</p>
+    </div>
+  </section>
 
-<section class="py-10 md:py-14">
-  <div class="section-label">Status</div>
-  <div class="mt-6 surface divide-y divide-line">
-    <div class="px-5 py-4 text-sm leading-relaxed text-ink-muted md:px-6">Astro page-based content active.</div>
-    <div class="px-5 py-4 text-sm leading-relaxed text-ink-muted md:px-6">Deployed to dedicated domain path on the web server.</div>
-    <div class="px-5 py-4 text-sm leading-relaxed text-ink-muted md:px-6">Webhook handling lives in the separate webhook-proxy repository.</div>
-  </div>
-</section>
+  <section class="section">
+    <div class="section-head"><p class="tag">status</p></div>
+    <div class="section-body">
+      <div class="list" style="margin-top:0;">
+        <div class="row"><span class="key">Build</span> dist/sites/nima</div>
+        <div class="row"><span class="key">Deploy</span> /var/www/html/nima.namche.ai</div>
+        <div class="row"><span class="key">Webhooks</span> via <a href="https://github.com/NamcheAI/webhook-proxy">webhook-proxy</a></div>
+      </div>
+    </div>
+  </section>
+</div>

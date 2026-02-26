@@ -17,7 +17,12 @@ const PageComponent =
   NamchePage;
 ---
 
-<Base title={meta.title} description={meta.description} brandLabel={meta.brandLabel ?? meta.hero.headline}>
+<Base
+  title={meta.title}
+  description={meta.description}
+  brandLabel={meta.brandLabel ?? meta.hero.headline}
+  siteId={siteId}
+>
   <SiteHero eyebrow={meta.hero.eyebrow} headline={meta.hero.headline} tagline={meta.hero.tagline} />
   <PageComponent />
 </Base>
