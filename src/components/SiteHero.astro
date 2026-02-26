@@ -8,23 +8,8 @@ interface Props {
 const { eyebrow, headline, tagline } = Astro.props;
 ---
 
-<section class="hero-board">
-  <article class="poster main">
-    <div class="geo-a"></div>
-    <div class="geo-b"></div>
-    <div class="poster-content">
-      <p class="poster-kicker">{eyebrow}</p>
-      <h1 class="poster-title">{headline}</h1>
-      <p class="poster-text">{tagline}</p>
-    </div>
-  </article>
-
-  <article class="poster side">
-    <div class="geo-c"></div>
-    <div class="poster-content">
-      <p class="poster-kicker">agent system</p>
-      <h2 class="poster-title">pure geometric</h2>
-      <p class="poster-text">Shared structure, per-agent palette, whitespace-first composition.</p>
-    </div>
-  </article>
+<section class="hero-copy-only">
+  <p class="poster-kicker">{eyebrow}</p>
+  <h1 class="poster-title">{headline}</h1>
+  <p class="poster-text">{tagline}</p>
 </section>
