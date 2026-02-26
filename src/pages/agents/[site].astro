@@ -1,11 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import SiteHero from '../../components/SiteHero.astro';
-import NamchePage from '../../components/pages/NamchePage.astro';
-import TashiPage from '../../components/pages/TashiPage.astro';
-import NimaPage from '../../components/pages/NimaPage.astro';
-import PemaPage from '../../components/pages/PemaPage.astro';
-import { isSiteId, listSiteIds, SITE_META } from '../../lib/sites';
+import { isSiteId, listSiteIds, SITES } from '../../sites';
 
 export function getStaticPaths() {
   return listSiteIds().map((site) => ({ params: { site } }));
@@ -16,21 +11,9 @@ if (!siteParam || !isSiteId(siteParam)) {
   throw new Error(`Invalid site param: ${siteParam ?? 'undefined'}`);
 }
 
-const meta = SITE_META[siteParam];
-
-const PageComponent =
-  siteParam === 'tashi' ? TashiPage :
-  siteParam === 'nima' ? NimaPage :
-  siteParam === 'pema' ? PemaPage :
-  NamchePage;
+const { meta, component: SitePage } = SITES[siteParam];
 ---
 
-<Base
-  title={`${meta.title} | Agent Preview`}
-  description={meta.description}
-  brandLabel={meta.brandLabel ?? meta.hero.headline}
-  siteId={siteParam}
->
-  <SiteHero eyebrow={meta.hero.eyebrow} headline={meta.hero.headline} tagline={meta.hero.tagline} />
-  <PageComponent />
+<Base title={`${meta.title} | Agent Preview`} description={meta.description} brandLabel={meta.brandLabel} siteId={siteParam}>
+  <SitePage />
 </Base>

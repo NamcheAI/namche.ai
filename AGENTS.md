@@ -40,7 +40,9 @@ Webhook proxy is maintained separately:
 
 ## Structure
 
-- `src/` — Astro source (layouts, components, pages)
+- `src/sites/` — one Astro file per site (metadata + content)
+- `src/layouts/Base.astro` — shared page shell
+- `src/styles/global.css` — shared CSS design system
 - `scripts/build-sites.mjs` — build all four sites into `dist/sites/<site>`
 - `.github/workflows/deploy.yaml` — CI deploy workflow to `bertrand.batlogg.com`
 - `docs/Mycelia Styleguide v0.1.pdf` — design and brand system
