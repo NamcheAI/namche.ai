@@ -132,7 +132,10 @@ footer { position: relative; z-index: 1; }
 
 @media (max-width: 720px) {
   .shell, main, footer { width: min(1120px, calc(100% - 26px)); }
-  .pill-nav { display: none; }
+  .topbar { flex-direction: column; align-items: flex-start; }
+  .pill-nav { width: 100%; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; }
+  .pill-nav a { flex: 0 0 auto; }
+  .pill-group { flex: 0 0 auto; }
   .grid.cols-2, .grid.cols-3 { grid-template-columns: 1fr; }
   .principles-grid { grid-template-columns: 1fr; }
   .footer-line { flex-direction: column; align-items: flex-start; }
