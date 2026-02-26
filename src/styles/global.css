@@ -29,7 +29,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-
   transform: translateY(-0.06em);
 }
 
-.emoji-mountain { transform: translateY(-0.10em); }
+.emoji-mountain { transform: translateY(-0.12em); }
 .emoji-lotus { transform: translateY(-0.03em); }
 .emoji-sun { transform: translateY(-0.07em); }
 
