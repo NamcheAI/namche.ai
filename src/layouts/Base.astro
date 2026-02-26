@@ -43,8 +43,10 @@ const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel 
             </svg>
             <span>{brandLabel}</span>
           </a>
-          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="top-nav">
-            Menu
+          <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="top-nav">
+            <span class="nav-toggle-line" aria-hidden="true"></span>
+            <span class="nav-toggle-line" aria-hidden="true"></span>
+            <span class="nav-toggle-line" aria-hidden="true"></span>
           </button>
           <nav id="top-nav" class="pill-nav">
             <a class:list={{ "is-active": siteId === 'namche' }} href="/agents/namche">Namche AI</a>
