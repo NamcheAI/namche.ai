@@ -55,6 +55,8 @@ body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-
 .pill-nav a.is-active { border-color: #000000; }
 .pill-group { display: inline-flex; gap: 0; }
 .pill-group a + a { margin-left: -1px; }
+.nav-toggle { display: none; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-family: var(--mono); font-size: 0.72rem; padding: 7px 11px; }
+.nav-toggle:hover { border-color: var(--primary); }
 
 main { padding: 86px 0 100px; }
 
@@ -133,9 +135,9 @@ footer { position: relative; z-index: 1; }
 @media (max-width: 720px) {
   .shell, main, footer { width: min(1120px, calc(100% - 26px)); }
   .topbar { flex-direction: column; align-items: flex-start; }
-  .pill-nav { width: 100%; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; }
-  .pill-nav a { flex: 0 0 auto; }
-  .pill-group { flex: 0 0 auto; }
+  .nav-toggle { display: inline-flex; }
+  .pill-nav { display: none; width: 100%; padding-top: 8px; }
+  .pill-nav.is-open { display: flex; }
   .grid.cols-2, .grid.cols-3 { grid-template-columns: 1fr; }
   .principles-grid { grid-template-columns: 1fr; }
   .footer-line { flex-direction: column; align-items: flex-start; }

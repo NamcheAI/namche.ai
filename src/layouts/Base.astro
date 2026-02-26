@@ -43,7 +43,10 @@ const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel 
             </svg>
             <span>{brandLabel}</span>
           </a>
-          <nav class="pill-nav">
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="top-nav">
+            Menu
+          </button>
+          <nav id="top-nav" class="pill-nav">
             <a class:list={{ "is-active": siteId === 'namche' }} href="/agents/namche">Namche AI</a>
             <span class="pill-group">
               <a class:list={{ "is-active": siteId === 'tashi' }} href="/agents/tashi" aria-label="Tashi"><span class="emoji emoji-mountain">🏔️</span></a>
@@ -65,6 +68,17 @@ const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel 
         </div>
       </footer>
     </div>
+    <script>
+      const toggle = document.querySelector('.nav-toggle');
+      const nav = document.querySelector('#top-nav');
+      if (toggle && nav) {
+        toggle.addEventListener('click', () => {
+          const expanded = toggle.getAttribute('aria-expanded') === 'true';
+          toggle.setAttribute('aria-expanded', String(!expanded));
+          nav.classList.toggle('is-open', !expanded);
+        });
+      }
+    </script>
   </body>
 </html>
 
