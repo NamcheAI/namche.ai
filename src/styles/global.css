@@ -30,7 +30,7 @@ body { background: var(--bg); color: var(--ink); font-family: var(--sans); line-
 }
 
 .emoji-mountain { transform: translateY(-0.12em); }
-.emoji-lotus { transform: translateY(-0.03em); }
+.emoji-lotus { transform: translateY(0.01em); }
 .emoji-sun { transform: translateY(-0.07em); }
 
 .site { min-height: 100vh; position: relative; overflow: hidden; }
