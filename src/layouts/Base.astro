@@ -45,9 +45,11 @@ const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel 
           </a>
           <nav class="pill-nav">
             <a class:list={{ "is-active": siteId === 'namche' }} href="/agents/namche">Namche AI</a>
-            <a class:list={{ "is-active": siteId === 'tashi' }} href="/agents/tashi" aria-label="Tashi"><span class="emoji emoji-mountain">🏔️</span></a>
-            <a class:list={{ "is-active": siteId === 'pema' }} href="/agents/pema" aria-label="Pema"><span class="emoji emoji-lotus">🪷</span></a>
-            <a class:list={{ "is-active": siteId === 'nima' }} href="/agents/nima" aria-label="Nima"><span class="emoji emoji-sun">☀️</span></a>
+            <span class="pill-group">
+              <a class:list={{ "is-active": siteId === 'tashi' }} href="/agents/tashi" aria-label="Tashi"><span class="emoji emoji-mountain">🏔️</span></a>
+              <a class:list={{ "is-active": siteId === 'pema' }} href="/agents/pema" aria-label="Pema"><span class="emoji emoji-lotus">🪷</span></a>
+              <a class:list={{ "is-active": siteId === 'nima' }} href="/agents/nima" aria-label="Nima"><span class="emoji emoji-sun">☀️</span></a>
+            </span>
           </nav>
         </header>
       </div>
