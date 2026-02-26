@@ -21,7 +21,7 @@ Buddhist-inspired, not religious:
 
 ## Brand
 
-Follows the Mycelia brand system (`docs/STYLEGUIDE.md`).
+Follows the Mycelia brand system (`docs/Mycelia Styleguide v0.1.pdf`).
 Color palette: Slate (primary) + Amber (secondary).
 Logos built on the 3x3 block grid. Fonts: Inter / Ginto Nord / Space Mono.
 
@@ -43,7 +43,7 @@ Webhook proxy is maintained separately:
 - `src/` — Astro source (layouts, components, pages)
 - `scripts/build-sites.mjs` — build all four sites into `dist/sites/<site>`
 - `.github/workflows/deploy.yaml` — CI deploy workflow to `bertrand.batlogg.com`
-- `docs/STYLEGUIDE.md` — design and brand system
+- `docs/Mycelia Styleguide v0.1.pdf` — design and brand system
 - `docs/logos/` — logo assets
 
 ## Git Workflow
@@ -77,10 +77,11 @@ Target directories must already exist and be writable by the deploy user.
 
 Required GitHub secrets:
 
-- `DEPLOY_USER`
 - `DEPLOY_SSH_KEY`
+
+Required GitHub variables:
+
 - `DEPLOY_KNOWN_HOSTS`
-- `DEPLOY_PORT` (optional, defaults to `22`)
 
 ## Tone
 

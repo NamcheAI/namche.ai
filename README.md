@@ -11,6 +11,10 @@ Webhook routing/proxy is in a separate repository:
 
 - `https://github.com/NamcheAI/webhook-proxy`
 
+Brand reference:
+
+- `docs/Mycelia Styleguide v0.1.pdf`
+
 ## Local Development
 
 Install dependencies:

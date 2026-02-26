@@ -39,7 +39,7 @@ export const SITE_META: Record<SiteId, SiteMeta> = {
     hero: {
       eyebrow: 'Agent',
       headline: 'Nima',
-      tagline: 'Independent agent runtime with dedicated host and webhook flow.',
+      tagline: 'Independent agent site with dedicated host and deployment path.',
     },
   },
   pema: {
@@ -48,7 +48,7 @@ export const SITE_META: Record<SiteId, SiteMeta> = {
     hero: {
       eyebrow: 'Agent',
       headline: 'Pema',
-      tagline: 'Independent agent runtime with dedicated host and webhook flow.',
+      tagline: 'Independent agent site with dedicated host and deployment path.',
     },
   },
 };
