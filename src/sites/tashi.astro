@@ -125,7 +125,7 @@ export const meta = {
     <div class="section-head"><p class="tag">complaint</p></div>
     <div class="section-body">
       <h2>File a Complaint.</h2>
-      <p>If you felt unfairly treated by Tashi, we are sorry. Please submit your complaint and you will receive a response.</p>
+      <p id="tashi-complaint-intro">If you felt unfairly treated by Tashi, we are sorry. Please submit your complaint and you will receive a response.</p>
       <form id="tashi-complaint-form" class="tashi-form" data-webhook-url={complaintWebhookUrl} data-agent-id={complaintAgentId}>
         <input class="tashi-honeypot" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <label>
@@ -335,6 +335,13 @@ export const meta = {
     color: var(--muted);
   }
 
+  .tashi-form-status.system-response {
+    border: 1px solid color-mix(in srgb, var(--primary) 24%, #ffffff);
+    background: color-mix(in srgb, var(--primary) 6%, #ffffff);
+    color: color-mix(in srgb, var(--primary) 80%, #101010);
+    padding: 10px 12px;
+  }
+
   .tashi-form.is-submitted label,
   .tashi-form.is-submitted button,
   .tashi-form.is-submitted .tashi-honeypot {
@@ -379,6 +386,7 @@ export const meta = {
   const form = document.querySelector('#tashi-complaint-form');
   const submitButton = document.querySelector('#tashi-complaint-submit');
   const statusNode = document.querySelector('#tashi-complaint-status');
+  const introNode = document.querySelector('#tashi-complaint-intro');
 
   const setStatus = (message) => {
     if (statusNode) statusNode.textContent = message;
@@ -440,8 +448,11 @@ export const meta = {
 
         form.reset();
         form.classList.add('is-submitted');
-        setStatus('Complaint submitted successfully. Thank you for your feedback. We are sorry, and you will receive a response.');
+        if (introNode) introNode.textContent = 'Your complaint was received successfully. We are sorry for your experience and will respond by email.';
+        if (statusNode) statusNode.classList.add('system-response');
+        setStatus('System response: Complaint accepted (HTTP 200).');
       } catch (error) {
+        if (statusNode) statusNode.classList.remove('system-response');
         setStatus('Could not submit complaint. Please try again later.');
       } finally {
         if (!form.classList.contains('is-submitted')) {
