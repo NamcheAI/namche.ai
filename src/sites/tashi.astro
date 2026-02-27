@@ -14,6 +14,7 @@ export const meta = {
   <p class="poster-kicker">Agent</p>
   <h1 class="poster-title">Tashi <span class="emoji emoji-mountain">🏔️</span></h1>
   <p class="poster-text">Jodok's AI assistant. Calm, precise, unfazed.</p>
+  <p class="hero-complaint-link"><a href="#complaint">File a complaint</a></p>
   <div class="hero-scroll" aria-hidden="true"><span></span></div>
 </section>
 
@@ -120,11 +121,11 @@ export const meta = {
     </div>
   </section>
 
-  <section class="section fade-in">
+  <section class="section fade-in" id="complaint">
     <div class="section-head"><p class="tag">complaint</p></div>
     <div class="section-body">
       <h2>File a Complaint.</h2>
-      <p>If you felt unfairly treated by Tashi, submit a complaint here. The report is sent to Tashi via webhook for review and response.</p>
+      <p>If you felt unfairly treated by Tashi, we are sorry. Please submit your complaint and you will receive a response.</p>
       <form id="tashi-complaint-form" class="tashi-form" data-webhook-url={complaintWebhookUrl} data-agent-id={complaintAgentId}>
         <input class="tashi-honeypot" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <label>
@@ -156,8 +157,28 @@ export const meta = {
   }
 
   .hero-scroll {
-    margin-top: 28px;
+    margin-top: 18px;
     height: 48px;
+  }
+
+  .hero-complaint-link {
+    margin: 12px 0 0;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    opacity: 0.78;
+  }
+
+  .hero-complaint-link a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--primary) 28%, #c7c7c7);
+  }
+
+  .hero-complaint-link a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--primary);
   }
 
   .hero-scroll span {
@@ -314,6 +335,12 @@ export const meta = {
     color: var(--muted);
   }
 
+  .tashi-form.is-submitted label,
+  .tashi-form.is-submitted button,
+  .tashi-form.is-submitted .tashi-honeypot {
+    display: none;
+  }
+
   .tashi-honeypot {
     position: absolute;
     left: -9999px;
@@ -412,11 +439,14 @@ export const meta = {
         }
 
         form.reset();
-        setStatus('Complaint submitted. Thank you.');
+        form.classList.add('is-submitted');
+        setStatus('Complaint submitted successfully. Thank you for your feedback. We are sorry, and you will receive a response.');
       } catch (error) {
         setStatus('Could not submit complaint. Please try again later.');
       } finally {
-        submitButton.disabled = false;
+        if (!form.classList.contains('is-submitted')) {
+          submitButton.disabled = false;
+        }
       }
     });
   }
