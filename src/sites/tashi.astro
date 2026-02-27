@@ -5,6 +5,9 @@ export const meta = {
   description: "Tashi is Jodok Batlogg's personal AI agent. Calm, attentive, precise.",
   brandLabel: 'Namche AI',
 };
+
+const complaintEndpoint = import.meta.env.PUBLIC_COMPLAINT_ENDPOINT ?? '';
+const complaintToken = import.meta.env.PUBLIC_COMPLAINT_TOKEN ?? '';
 ---
 
 <section class="hero-copy-only tashi-hero">
@@ -114,6 +117,41 @@ export const meta = {
         <div class="row"><span class="key">Platform</span> OpenClaw</div>
         <div class="row"><span class="key">Hardware</span> Mac Mini M4 Pro ("tashi"), Dornbirn</div>
       </div>
+    </div>
+  </section>
+  <section id="complaint" class="section fade-in">
+    <div class="section-head"><p class="tag">complaint</p></div>
+    <div class="section-body">
+      <h2>Submit a Complaint.</h2>
+      <p>Something went wrong, felt off, or could be better? Say so. Tashi reads every submission.</p>
+
+      <form id="complaint-form" class="complaint-form" novalidate>
+        <div class="field">
+          <label for="cf-name">Name <span class="optional">optional</span></label>
+          <input id="cf-name" name="name" type="text" placeholder="Your name" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="cf-email">Email <span class="required">required</span></label>
+          <input id="cf-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="cf-context">Context <span class="optional">optional</span></label>
+          <input id="cf-context" name="context" type="text" placeholder="Brief topic or reference" />
+        </div>
+        <div class="field">
+          <label for="cf-message">Complaint <span class="required">required</span></label>
+          <textarea id="cf-message" name="message" rows="5" placeholder="What happened? Be direct." required></textarea>
+        </div>
+        <div class="field-action">
+          <button type="submit" id="cf-submit" class="btn-submit">Send complaint</button>
+        </div>
+        <div id="cf-success" class="cf-state cf-success" hidden>
+          <span class="cf-state-icon">✓</span> Received. Tashi will read this.
+        </div>
+        <div id="cf-error" class="cf-state cf-error" hidden>
+          <span class="cf-state-icon">✗</span> <span id="cf-error-msg">Something went wrong. Try again.</span>
+        </div>
+      </form>
     </div>
   </section>
 </div>
@@ -237,9 +275,123 @@ export const meta = {
       grid-template-columns: 1fr;
     }
   }
+
+  /* Complaint form */
+  .complaint-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 560px;
+  }
+
+  .complaint-form .field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .complaint-form label {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--primary);
+  }
+
+  .complaint-form .optional,
+  .complaint-form .required {
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    opacity: 0.6;
+    text-transform: none;
+    font-family: var(--mono);
+  }
+
+  .complaint-form .required {
+    color: color-mix(in srgb, var(--primary) 80%, #cc0000);
+    opacity: 0.8;
+  }
+
+  .complaint-form input,
+  .complaint-form textarea {
+    background: var(--card);
+    border: 1px solid color-mix(in srgb, var(--primary) 20%, #d0d0d0);
+    color: var(--fg);
+    font-family: var(--mono);
+    font-size: 0.88rem;
+    padding: 9px 12px;
+    outline: none;
+    transition: border-color 160ms ease;
+    resize: vertical;
+  }
+
+  .complaint-form input:focus,
+  .complaint-form textarea:focus {
+    border-color: var(--primary);
+  }
+
+  .complaint-form input::placeholder,
+  .complaint-form textarea::placeholder {
+    color: var(--muted);
+    opacity: 0.55;
+  }
+
+  .field-action {
+    margin-top: 4px;
+  }
+
+  .btn-submit {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    font-family: var(--mono);
+    font-size: 0.84rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 10px 22px;
+    cursor: pointer;
+    transition: opacity 160ms ease;
+  }
+
+  .btn-submit:hover {
+    opacity: 0.82;
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .cf-state {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    padding: 10px 14px;
+    border-left: 3px solid;
+  }
+
+  .cf-success {
+    border-color: #22a060;
+    background: color-mix(in srgb, #22a060 8%, #ffffff);
+    color: #17703f;
+  }
+
+  .cf-error {
+    border-color: #cc3333;
+    background: color-mix(in srgb, #cc3333 8%, #ffffff);
+    color: #992222;
+  }
+
+  .cf-state-icon {
+    font-size: 1rem;
+    font-weight: bold;
+  }
 </style>
 
-<script>
+<script define:vars={{ complaintEndpoint, complaintToken }}>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -249,4 +401,55 @@ export const meta = {
   }, { threshold: 0.18, rootMargin: '0px 0px -30px 0px' });
 
   document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+  // Complaint form
+  const ENDPOINT = complaintEndpoint;
+  const TOKEN = complaintToken;
+
+  const form = document.getElementById('complaint-form');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submit = document.getElementById('cf-submit');
+      const success = document.getElementById('cf-success');
+      const error = document.getElementById('cf-error');
+      const errorMsg = document.getElementById('cf-error-msg');
+
+      success.hidden = true;
+      error.hidden = true;
+      submit.disabled = true;
+      submit.textContent = 'Sending...';
+
+      const data = new FormData(form);
+      const name = (data.get('name') || '').trim();
+      const email = (data.get('email') || '').trim();
+      const context = (data.get('context') || '').trim();
+      const message = (data.get('message') || '').trim();
+
+      const payload = { email, message };
+      if (name) payload.name = name;
+      if (context) payload.context = context;
+
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (TOKEN) headers['Authorization'] = 'Bearer ' + TOKEN;
+        const res = await fetch(ENDPOINT, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) {
+          throw new Error('HTTP ' + res.status);
+        }
+        success.hidden = false;
+        form.reset();
+      } catch (err) {
+        errorMsg.textContent = err && err.message ? 'Error: ' + err.message : 'Something went wrong. Try again.';
+        error.hidden = false;
+      } finally {
+        submit.disabled = false;
+        submit.textContent = 'Send complaint';
+      }
+    });
+  }
 </script>
