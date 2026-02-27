@@ -124,7 +124,7 @@ export const meta = {
   <section class="section fade-in" id="complaint">
     <div class="section-head"><p class="tag">complaint</p></div>
     <div class="section-body">
-      <h2>File a Complaint.</h2>
+      <h2 id="tashi-complaint-heading">File a Complaint.</h2>
       <p>If you felt unfairly treated by Tashi, we are sorry. Please submit your complaint and you will receive a response.</p>
       <form id="tashi-complaint-form" class="tashi-form" data-webhook-url={complaintWebhookUrl} data-agent-id={complaintAgentId}>
         <input class="tashi-honeypot" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -379,6 +379,7 @@ export const meta = {
   const form = document.querySelector('#tashi-complaint-form');
   const submitButton = document.querySelector('#tashi-complaint-submit');
   const statusNode = document.querySelector('#tashi-complaint-status');
+  const headingNode = document.querySelector('#tashi-complaint-heading');
 
   const setStatus = (message) => {
     if (statusNode) statusNode.textContent = message;
@@ -440,6 +441,7 @@ export const meta = {
 
         form.reset();
         form.classList.add('is-submitted');
+        if (headingNode) headingNode.textContent = 'Complaint Received.';
         setStatus('Complaint submitted successfully. Thank you for your feedback. We are sorry, and you will receive a response.');
       } catch (error) {
         setStatus('Could not submit complaint. Please try again later.');
