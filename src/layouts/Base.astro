@@ -7,6 +7,13 @@ interface Props {
 }
 
 const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel = 'namche.ai', siteId = 'namche' } = Astro.props;
+const faviconHrefBySite = {
+  namche: '/favicons/namche.svg',
+  tashi: '/favicons/tashi.svg',
+  pema: '/favicons/pema.svg',
+  nima: '/favicons/nima.svg',
+} as const;
+const faviconHref = faviconHrefBySite[siteId as keyof typeof faviconHrefBySite] ?? '/favicons/namche.svg';
 ---
 
 <!doctype html>
@@ -16,7 +23,7 @@ const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={faviconHref} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
