@@ -51,6 +51,12 @@ npm run dev -- --site nima
 npm run dev -- --site pema
 ```
 
+Optional environment variable for the Tashi complaint form webhook:
+
+```bash
+PUBLIC_TASHI_COMPLAINT_WEBHOOK_URL=https://api.namche.ai/webhooks/tashi/complaint
+```
+
 ## Build
 
 Build all sites:
