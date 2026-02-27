@@ -51,7 +51,14 @@ npm run dev -- --site nima
 npm run dev -- --site pema
 ```
 
-Optional environment variable for the Tashi complaint form webhook:
+Optional environment variable for the Tashi complaint form webhook.
+Default endpoint is relative:
+
+```bash
+/v1/webhooks/agents/tashi/complaint
+```
+
+Override if needed:
 
 ```bash
 PUBLIC_TASHI_COMPLAINT_WEBHOOK_URL=https://api.namche.ai/webhooks/tashi/complaint

@@ -1,5 +1,6 @@
 ---
-const complaintWebhookUrl = import.meta.env.PUBLIC_TASHI_COMPLAINT_WEBHOOK_URL ?? '';
+const complaintAgentId = 'tashi';
+const complaintWebhookUrl = import.meta.env.PUBLIC_TASHI_COMPLAINT_WEBHOOK_URL ?? `/v1/webhooks/agents/${complaintAgentId}/complaint`;
 
 export const meta = {
   id: 'tashi',
@@ -124,7 +125,7 @@ export const meta = {
     <div class="section-body">
       <h2>File a Complaint.</h2>
       <p>If you felt unfairly treated by Tashi, submit a complaint here. The report is sent to Tashi via webhook for review and response.</p>
-      <form id="tashi-complaint-form" class="tashi-form" data-webhook-url={complaintWebhookUrl}>
+      <form id="tashi-complaint-form" class="tashi-form" data-webhook-url={complaintWebhookUrl} data-agent-id={complaintAgentId}>
         <input class="tashi-honeypot" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <label>
           <span>Name (optional)</span>
@@ -358,6 +359,7 @@ export const meta = {
 
   if (form && submitButton) {
     const webhookUrl = form.dataset.webhookUrl?.trim() ?? '';
+    const agentId = form.dataset.agentId?.trim() ?? 'tashi';
 
     if (!webhookUrl) {
       submitButton.disabled = true;
@@ -374,11 +376,14 @@ export const meta = {
       if (honeypot) return;
 
       const payload = {
-        type: 'complaint',
-        site: 'tashi',
+        event: 'agent.complaint.submitted',
+        agentId,
         submittedAt: new Date().toISOString(),
-        pageUrl: window.location.href,
-        userAgent: navigator.userAgent,
+        source: {
+          site: 'tashi',
+          pageUrl: window.location.href,
+          userAgent: navigator.userAgent,
+        },
         complaint: {
           name: (formData.get('name') || '').toString().trim(),
           email: (formData.get('email') || '').toString().trim(),
