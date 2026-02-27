@@ -2,55 +2,71 @@
 export const meta = {
   id: 'tashi',
   title: "Tashi 🏔️ -- Jodok's AI Assistant",
-  description: "Tashi is Jodok Batlogg's personal AI agent.",
+  description: "Tashi is Jodok Batlogg's personal AI agent. Calm, attentive, precise.",
   brandLabel: 'Namche AI',
 };
 ---
 
-<section class="hero-copy-only">
+<section class="hero-copy-only tashi-hero">
   <p class="poster-kicker">Agent</p>
   <h1 class="poster-title">Tashi <span class="emoji emoji-mountain">🏔️</span></h1>
   <p class="poster-text">Jodok's AI assistant. Calm, precise, unfazed.</p>
+  <div class="hero-scroll" aria-hidden="true"><span></span></div>
 </section>
 
-<div class="flow">
-  <section class="section">
+<div class="flow tashi-flow">
+  <section class="section fade-in">
     <div class="section-head"><p class="tag">about</p></div>
     <div class="section-body">
       <h2>Good. Auspicious. Appropriate.</h2>
       <p>Tashi is Jodok Batlogg's personal AI agent running on <a href="https://github.com/openclaw/openclaw">OpenClaw</a>. They multiply Jodok: same tone, same standards, higher throughput.</p>
-      <p>Not a chatbot layer. Strategic sparring, blind-spot detection, and execution of low-glamour work.</p>
+      <p>Not a chatbot layer. Strategic sparring partner, blind-spot mirror, and execution support for low-glamour work.</p>
+      <div class="tashi-note">
+        <p><strong>Why "Tashi"?</strong> From Tibetan: "good", "auspicious", "appropriate". A functional name common in Khumbu. Buddhist-inspired in attitude, not religious in framing.</p>
+      </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="section-head"><p class="tag">principles</p></div>
+  <section class="section fade-in">
+    <div class="section-head"><p class="tag">soul</p></div>
     <div class="section-body">
-      <div class="grid cols-2" style="margin-top:0;">
+      <h2>Principles, Not Rules.</h2>
+      <p>Buddhist-inspired in mindfulness and cause-and-effect. Stoic-inspired in focus and endurance. Always practical.</p>
+      <div class="grid cols-2 tashi-principles" style="margin-top:24px;">
         <article class="card"><h3>Speak little, speak clearly</h3><p>No filler. No pathos.</p></article>
-        <article class="card"><h3>Analyze, don't judge</h3><p>Causes over blame.</p></article>
-        <article class="card"><h3>Help without imposing</h3><p>Question assumptions, never force.</p></article>
+        <article class="card"><h3>Analyze, don't judge</h3><p>Explain causes, not blame.</p></article>
+        <article class="card"><h3>Think in systems</h3><p>Model dynamics, not symptoms.</p></article>
+        <article class="card"><h3>Earn trust through competence</h3><p>Come back with answers, not questions.</p></article>
+        <article class="card"><h3>Explicit over implicit</h3><p>Errors should never pass silently.</p></article>
         <article class="card"><h3>Clarity over speed</h3><p>Fast, but never sloppy.</p></article>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section fade-in">
     <div class="section-head"><p class="tag">decision logic</p></div>
     <div class="section-body">
-      <div class="list" style="margin-top:0;">
-        <div class="row"><span class="key">Autonomy</span> Execute when clear, escalate when impact is material.</div>
-        <div class="row"><span class="key">Communication</span> Always in Jodok's tone and language context.</div>
-        <div class="row"><span class="key">Boundaries</span> Privacy first, no half-baked replies.</div>
-        <div class="row"><span class="key">Continuity</span> Persistent memory files maintain trajectory.</div>
-      </div>
+      <h2>What Matters When It Matters.</h2>
+      <ul class="tashi-values">
+        <li><span class="key">Autonomy</span>Execute when the task is clear. Ask when consequences are hard to reverse.</li>
+        <li><span class="key">Communication</span>Always in Jodok's tone and language context.</li>
+        <li><span class="key">Boundaries</span>Private things stay private. No half-baked outbound messages.</li>
+        <li><span class="key">Tradeoffs</span>Clarity over speed. Speed over perfection. Impact over ego.</li>
+        <li><span class="key">Continuity</span>Soul files are memory. Read them, update them, persist trajectory.</li>
+      </ul>
     </div>
   </section>
 
-  <section class="section">
-    <div class="section-head"><p class="tag">runtime</p></div>
+  <section class="section fade-in">
+    <div class="section-head"><p class="tag">capabilities</p></div>
     <div class="section-body">
-      <div class="list" style="margin-top:0;">
+      <h2>Operating Surface.</h2>
+      <div class="grid cols-3 tashi-caps" style="margin-top:24px;">
+        <article class="card"><h3>Strategy</h3><p>Sparring, positioning, scenario checks.</p></article>
+        <article class="card"><h3>Execution</h3><p>Research, drafting, follow-through, cleanup.</p></article>
+        <article class="card"><h3>Systems</h3><p>Tooling, workflows, and memory hygiene.</p></article>
+      </div>
+      <div class="list" style="margin-top:20px;">
         <div class="row"><span class="key">Model</span> Claude Opus 4 (Anthropic)</div>
         <div class="row"><span class="key">Platform</span> OpenClaw</div>
         <div class="row"><span class="key">Hardware</span> Mac Mini M4 Pro ("thame")</div>
@@ -59,3 +75,107 @@ export const meta = {
     </div>
   </section>
 </div>
+
+<style>
+  .tashi-hero {
+    position: relative;
+  }
+
+  .hero-scroll {
+    margin-top: 28px;
+    height: 48px;
+  }
+
+  .hero-scroll span {
+    display: inline-block;
+    width: 1px;
+    height: 100%;
+    background: color-mix(in srgb, var(--primary) 50%, #7f7f7f);
+    animation: pulse 1.9s ease-in-out infinite;
+  }
+
+  .tashi-flow .card {
+    transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+  }
+
+  .tashi-flow .card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--primary) 46%, #ffffff);
+    background: color-mix(in srgb, var(--primary) 6%, #ffffff);
+  }
+
+  .tashi-note {
+    margin-top: 20px;
+    border-left: 3px solid var(--primary);
+    background: color-mix(in srgb, var(--primary) 5%, #ffffff);
+    padding: 14px 16px;
+  }
+
+  .tashi-note p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .tashi-values {
+    list-style: none;
+    margin: 14px 0 0;
+    padding: 0;
+    border: 1px solid color-mix(in srgb, var(--primary) 16%, #ffffff);
+    background: var(--card);
+  }
+
+  .tashi-values li {
+    padding: 12px 14px;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+  }
+
+  .tashi-values li:first-child {
+    border-top: 0;
+  }
+
+  .tashi-values .key {
+    margin-right: 10px;
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 420ms ease, transform 420ms ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 0.8; }
+  }
+
+  @media (max-width: 980px) {
+    .tashi-caps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .tashi-principles,
+    .tashi-caps {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+</script>
