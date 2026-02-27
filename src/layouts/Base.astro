@@ -7,6 +7,26 @@ interface Props {
 }
 
 const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel = 'namche.ai', siteId = 'namche' } = Astro.props;
+const faviconHrefBySite = {
+  namche: '/favicons/namche.svg',
+  tashi: '/favicons/tashi.svg',
+  pema: '/favicons/pema.svg',
+  nima: '/favicons/nima.svg',
+} as const;
+const faviconHref = faviconHrefBySite[siteId as keyof typeof faviconHrefBySite] ?? '/favicons/namche.svg';
+const navHrefBySite = import.meta.env.PROD
+  ? {
+      namche: 'https://namche.ai',
+      tashi: 'https://tashi.namche.ai',
+      pema: 'https://pema.namche.ai',
+      nima: 'https://nima.namche.ai',
+    }
+  : {
+      namche: '/agents/namche',
+      tashi: '/agents/tashi',
+      pema: '/agents/pema',
+      nima: '/agents/nima',
+    };
 ---
 
 <!doctype html>
@@ -16,7 +36,7 @@ const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={faviconHref} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -31,7 +51,7 @@ const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel 
       </div>
       <div class="shell">
         <header class="topbar">
-          <a href="/" class="brand">
+          <a href="https://namche.ai" class="brand">
             <svg viewBox="0 0 280 280" fill="currentColor" aria-hidden="true">
               <rect x="10" y="10" width="80" height="80"/>
               <rect x="10" y="100" width="80" height="80"/>
@@ -49,11 +69,11 @@ const { title, description = "namche.ai — Jodok Batlogg's AI hub", brandLabel 
             <span class="nav-toggle-line" aria-hidden="true"></span>
           </button>
           <nav id="top-nav" class="pill-nav">
-            <a class:list={{ "is-active": siteId === 'namche' }} href="/agents/namche">Namche AI</a>
+            <a class:list={{ "is-active": siteId === 'namche' }} href={navHrefBySite.namche}>Namche AI</a>
             <span class="pill-group">
-              <a class:list={{ "is-active": siteId === 'tashi' }} href="/agents/tashi" aria-label="Tashi"><span class="emoji emoji-mountain">🏔️</span></a>
-              <a class:list={{ "is-active": siteId === 'pema' }} href="/agents/pema" aria-label="Pema"><span class="emoji emoji-lotus">🪷</span></a>
-              <a class:list={{ "is-active": siteId === 'nima' }} href="/agents/nima" aria-label="Nima"><span class="emoji emoji-sun">☀️</span></a>
+              <a class:list={{ "is-active": siteId === 'tashi' }} href={navHrefBySite.tashi} aria-label="Tashi"><span class="emoji emoji-mountain">🏔️</span></a>
+              <a class:list={{ "is-active": siteId === 'pema' }} href={navHrefBySite.pema} aria-label="Pema"><span class="emoji emoji-lotus">🪷</span></a>
+              <a class:list={{ "is-active": siteId === 'nima' }} href={navHrefBySite.nima} aria-label="Nima"><span class="emoji emoji-sun">☀️</span></a>
             </span>
           </nav>
         </header>

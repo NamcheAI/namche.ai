@@ -3,6 +3,9 @@ import Base from '../../layouts/Base.astro';
 import { isSiteId, listSiteIds, SITES } from '../../sites';
 
 export function getStaticPaths() {
+  if (import.meta.env.PROD) {
+    return [];
+  }
   return listSiteIds().map((site) => ({ params: { site } }));
 }
 
