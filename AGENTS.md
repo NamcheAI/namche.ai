@@ -24,6 +24,7 @@ Buddhist-inspired, not religious:
 Follows the Mycelia brand system (`docs/Mycelia Styleguide v0.1.pdf`).
 Color palette: Slate (primary) + Amber (secondary).
 Logos built on the 3x3 block grid. Fonts: Inter / Ginto Nord / Space Mono.
+Current UI direction: geometric, whitespace-heavy, minimal.
 
 ## Scope
 
@@ -43,6 +44,7 @@ Webhook proxy is maintained separately:
 - `src/sites/` — one Astro file per site (metadata + content)
 - `src/layouts/Base.astro` — shared page shell
 - `src/styles/global.css` — shared CSS design system
+- `public/favicons/` — per-site SVG favicons
 - `scripts/build-sites.mjs` — build all four sites into `dist/sites/<site>`
 - `.github/workflows/deploy.yaml` — CI deploy workflow to `bertrand.batlogg.com`
 - `docs/Mycelia Styleguide v0.1.pdf` — design and brand system
@@ -55,7 +57,8 @@ Webhook proxy is maintained separately:
 3. Commit and push to that branch.
 4. Open or update a PR.
 5. Address review feedback on the same branch.
-6. Merge only after explicit approval.
+6. Merge immediately after explicit `ack`/approval.
+7. After merge, always watch the deploy workflow and confirm result.
 
 Never commit directly to `main`.
 
@@ -65,6 +68,7 @@ Never commit directly to `main`.
 - Build all sites: `npm run build:sites`
 - Build single site: `npm run build:site -- --site tashi`
 - Preview build: `npm start`
+- Note: `/agents/*` preview routes are dev-only and excluded from production builds.
 
 ## Deployment
 
