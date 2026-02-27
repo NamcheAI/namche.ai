@@ -1,6 +1,6 @@
 ---
 const complaintAgentId = 'tashi';
-const complaintWebhookUrl = import.meta.env.PUBLIC_TASHI_COMPLAINT_WEBHOOK_URL ?? `/v1/webhooks/agents/${complaintAgentId}/complaint`;
+const complaintWebhookUrl = import.meta.env.PUBLIC_TASHI_COMPLAINT_WEBHOOK_URL ?? `https://api.namche.ai/v1/webhooks/agents/${complaintAgentId}/complaint`;
 
 export const meta = {
   id: 'tashi',
