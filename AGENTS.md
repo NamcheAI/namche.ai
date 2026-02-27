@@ -24,6 +24,7 @@ Buddhist-inspired, not religious:
 Follows the Mycelia brand system (`docs/Mycelia Styleguide v0.1.pdf`).
 Color palette: Slate (primary) + Amber (secondary).
 Logos built on the 3x3 block grid. Fonts: Inter / Ginto Nord / Space Mono.
+Current UI direction: geometric, whitespace-heavy, minimal.
 
 ## Scope
 
@@ -43,21 +44,41 @@ Webhook proxy is maintained separately:
 - `src/sites/` — one Astro file per site (metadata + content)
 - `src/layouts/Base.astro` — shared page shell
 - `src/styles/global.css` — shared CSS design system
+- `public/favicons/` — per-site SVG favicons
 - `scripts/build-sites.mjs` — build all four sites into `dist/sites/<site>`
 - `.github/workflows/deploy.yaml` — CI deploy workflow to `bertrand.batlogg.com`
 - `docs/Mycelia Styleguide v0.1.pdf` — design and brand system
 - `docs/logos/` — logo assets
 
-## Git Workflow
+## GitHub Operations
+
+This section is intended to be reusable across repositories.
+
+### Branching
 
 1. Always `git pull origin main` before starting work.
 2. Create a feature branch with prefix `codex/`.
-3. Commit and push to that branch.
-4. Open or update a PR.
-5. Address review feedback on the same branch.
-6. Merge only after explicit approval.
+3. Never commit directly to `main`.
 
-Never commit directly to `main`.
+### Commit Messages
+
+Use Conventional Commits format for every commit:
+
+- `type(scope): summary`
+- Example: `feat(site): add per-site favicon routing`
+- Allowed types: `feat`, `fix`, `docs`, `refactor`, `style`, `test`, `build`, `ci`, `chore`
+
+### Pull Requests
+
+1. Push to the feature branch.
+2. Open or update a PR.
+3. Address review feedback on the same branch.
+4. Merge immediately after explicit `ack`/approval.
+
+### Post-Merge
+
+1. Watch the deployment workflow run.
+2. Confirm success in the PR thread/chat response.
 
 ## Development
 
@@ -65,6 +86,7 @@ Never commit directly to `main`.
 - Build all sites: `npm run build:sites`
 - Build single site: `npm run build:site -- --site tashi`
 - Preview build: `npm start`
+- Note: `/agents/*` preview routes are dev-only and excluded from production builds.
 
 ## Deployment
 
