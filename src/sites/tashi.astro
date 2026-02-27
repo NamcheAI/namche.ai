@@ -1,4 +1,7 @@
 ---
+const complaintAgentId = 'tashi';
+const complaintWebhookUrl = import.meta.env.PUBLIC_TASHI_COMPLAINT_WEBHOOK_URL ?? `https://api.namche.ai/v1/webhooks/agents/${complaintAgentId}/complaint`;
+
 export const meta = {
   id: 'tashi',
   title: "Tashi 🏔️ -- Jodok's AI Assistant",
@@ -11,6 +14,7 @@ export const meta = {
   <p class="poster-kicker">Agent</p>
   <h1 class="poster-title">Tashi <span class="emoji emoji-mountain">🏔️</span></h1>
   <p class="poster-text">Jodok's AI assistant. Calm, precise, unfazed.</p>
+  <p class="hero-complaint-link"><a href="#complaint">File a complaint</a></p>
   <div class="hero-scroll" aria-hidden="true"><span></span></div>
 </section>
 
@@ -116,6 +120,35 @@ export const meta = {
       </div>
     </div>
   </section>
+
+  <section class="section fade-in" id="complaint">
+    <div class="section-head"><p class="tag">complaint</p></div>
+    <div class="section-body">
+      <h2>File a Complaint.</h2>
+      <p>If you felt unfairly treated by Tashi, we are sorry. Please submit your complaint and you will receive a response.</p>
+      <form id="tashi-complaint-form" class="tashi-form" data-webhook-url={complaintWebhookUrl} data-agent-id={complaintAgentId}>
+        <input class="tashi-honeypot" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <label>
+          <span>Name (optional)</span>
+          <input type="text" name="name" maxlength="120" />
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" maxlength="190" required />
+        </label>
+        <label>
+          <span>Context (optional)</span>
+          <input type="text" name="context" maxlength="190" placeholder="e.g. wrong tone in email reply" />
+        </label>
+        <label>
+          <span>Complaint</span>
+          <textarea name="complaint" rows="6" maxlength="5000" required></textarea>
+        </label>
+        <button type="submit" id="tashi-complaint-submit">Submit complaint</button>
+        <p class="tashi-form-status" id="tashi-complaint-status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
 </div>
 
 <style>
@@ -124,8 +157,28 @@ export const meta = {
   }
 
   .hero-scroll {
-    margin-top: 28px;
+    margin-top: 18px;
     height: 48px;
+  }
+
+  .hero-complaint-link {
+    margin: 12px 0 0;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    opacity: 0.78;
+  }
+
+  .hero-complaint-link a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--primary) 28%, #c7c7c7);
+  }
+
+  .hero-complaint-link a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--primary);
   }
 
   .hero-scroll span {
@@ -220,6 +273,79 @@ export const meta = {
     transform: translateY(0);
   }
 
+  .tashi-form {
+    margin-top: 20px;
+    display: grid;
+    gap: 14px;
+  }
+
+  .tashi-form label {
+    display: grid;
+    gap: 6px;
+  }
+
+  .tashi-form label span {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+  }
+
+  .tashi-form input,
+  .tashi-form textarea {
+    width: 100%;
+    border: 1px solid color-mix(in srgb, var(--primary) 20%, #ffffff);
+    background: #ffffff;
+    color: var(--ink);
+    padding: 10px 11px;
+    font: inherit;
+  }
+
+  .tashi-form textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  .tashi-form button {
+    justify-self: start;
+    border: 1px solid var(--primary);
+    background: color-mix(in srgb, var(--primary) 10%, #ffffff);
+    color: var(--ink);
+    padding: 8px 12px;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+  }
+
+  .tashi-form button:hover {
+    background: color-mix(in srgb, var(--primary) 18%, #ffffff);
+  }
+
+  .tashi-form button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.62;
+  }
+
+  .tashi-form-status {
+    margin: 2px 0 0;
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+
+  .tashi-form.is-submitted label,
+  .tashi-form.is-submitted button,
+  .tashi-form.is-submitted .tashi-honeypot {
+    display: none;
+  }
+
+  .tashi-honeypot {
+    position: absolute;
+    left: -9999px;
+  }
+
   @keyframes pulse {
     0%, 100% { opacity: 0.25; }
     50% { opacity: 0.8; }
@@ -249,4 +375,79 @@ export const meta = {
   }, { threshold: 0.18, rootMargin: '0px 0px -30px 0px' });
 
   document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+  const form = document.querySelector('#tashi-complaint-form');
+  const submitButton = document.querySelector('#tashi-complaint-submit');
+  const statusNode = document.querySelector('#tashi-complaint-status');
+
+  const setStatus = (message) => {
+    if (statusNode) statusNode.textContent = message;
+  };
+
+  if (form && submitButton) {
+    const webhookUrl = form.dataset.webhookUrl?.trim() ?? '';
+    const agentId = form.dataset.agentId?.trim() ?? 'tashi';
+
+    if (!webhookUrl) {
+      submitButton.disabled = true;
+      setStatus('Complaint endpoint not configured yet.');
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!webhookUrl) return;
+
+      const formData = new FormData(form);
+      const honeypot = (formData.get('company') || '').toString().trim();
+      if (honeypot) return;
+
+      const payload = {
+        event: 'agent.complaint.submitted',
+        agentId,
+        submittedAt: new Date().toISOString(),
+        source: {
+          site: 'tashi',
+          pageUrl: window.location.href,
+          userAgent: navigator.userAgent,
+        },
+        complaint: {
+          name: (formData.get('name') || '').toString().trim(),
+          email: (formData.get('email') || '').toString().trim(),
+          context: (formData.get('context') || '').toString().trim(),
+          message: (formData.get('complaint') || '').toString().trim(),
+        },
+      };
+
+      if (!payload.complaint.email || !payload.complaint.message) {
+        setStatus('Please fill in email and complaint.');
+        return;
+      }
+
+      submitButton.disabled = true;
+      setStatus('Sending complaint...');
+
+      try {
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Request failed: ${response.status}`);
+        }
+
+        form.reset();
+        form.classList.add('is-submitted');
+        setStatus('Complaint submitted successfully. Thank you for your feedback. We are sorry, and you will receive a response.');
+      } catch (error) {
+        setStatus('Could not submit complaint. Please try again later.');
+      } finally {
+        if (!form.classList.contains('is-submitted')) {
+          submitButton.disabled = false;
+        }
+      }
+    });
+  }
 </script>
