@@ -6,9 +6,7 @@ export const meta = {
   brandLabel: 'Namche AI',
 };
 
-// PUBLIC_COMPLAINT_ENDPOINT should point to: https://api.namche.ai/v1/webhooks/agents/tashi/webform/complaint
-const complaintEndpoint = import.meta.env.PUBLIC_COMPLAINT_ENDPOINT ?? '';
-const complaintToken = import.meta.env.PUBLIC_COMPLAINT_TOKEN ?? '';
+const WEBFORM_ENDPOINT = 'https://api.namche.ai/v1/webhooks/agents/tashi/webform/complaint';
 ---
 
 <section class="hero-copy-only tashi-hero">
@@ -392,7 +390,7 @@ const complaintToken = import.meta.env.PUBLIC_COMPLAINT_TOKEN ?? '';
   }
 </style>
 
-<script define:vars={{ complaintEndpoint, complaintToken }}>
+<script define:vars={{ WEBFORM_ENDPOINT }}>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -404,8 +402,7 @@ const complaintToken = import.meta.env.PUBLIC_COMPLAINT_TOKEN ?? '';
   document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
 
   // Complaint form
-  const ENDPOINT = complaintEndpoint;
-  const TOKEN = complaintToken;
+
 
   const form = document.getElementById('complaint-form');
   if (form) {
@@ -433,8 +430,7 @@ const complaintToken = import.meta.env.PUBLIC_COMPLAINT_TOKEN ?? '';
 
       try {
         const headers = { 'Content-Type': 'application/json' };
-        if (TOKEN) headers['Authorization'] = 'Bearer ' + TOKEN;
-        const res = await fetch(ENDPOINT, {
+        const res = await fetch(WEBFORM_ENDPOINT, {
           method: 'POST',
           headers,
           body: JSON.stringify(payload),
