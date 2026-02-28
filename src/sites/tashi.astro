@@ -6,6 +6,7 @@ export const meta = {
   brandLabel: 'Namche AI',
 };
 
+// PUBLIC_COMPLAINT_ENDPOINT should point to: https://api.namche.ai/v1/webhooks/agents/tashi/webform/complaint
 const complaintEndpoint = import.meta.env.PUBLIC_COMPLAINT_ENDPOINT ?? '';
 const complaintToken = import.meta.env.PUBLIC_COMPLAINT_TOKEN ?? '';
 ---
