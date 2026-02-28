@@ -1,6 +1,5 @@
 ---
-const complaintAgentId = 'tashi';
-const complaintWebhookUrl = import.meta.env.PUBLIC_TASHI_COMPLAINT_WEBHOOK_URL ?? `https://api.namche.ai/v1/webhooks/agents/${complaintAgentId}/complaint`;
+const WEBFORM_ENDPOINT = 'https://api.namche.ai/v1/webhooks/agents/tashi/webform/complaint';
 
 export const meta = {
   id: 'tashi',
@@ -126,7 +125,7 @@ export const meta = {
     <div class="section-body">
       <h2>File a Complaint.</h2>
       <p id="tashi-complaint-intro">If you felt unfairly treated by Tashi, we are sorry. Please submit your complaint and you will receive a response.</p>
-      <form id="tashi-complaint-form" class="tashi-form" data-webhook-url={complaintWebhookUrl} data-agent-id={complaintAgentId}>
+      <form id="tashi-complaint-form" class="tashi-form" data-webhook-url={WEBFORM_ENDPOINT}>
         <input class="tashi-honeypot" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <label>
           <span>Name (optional)</span>
@@ -394,8 +393,6 @@ export const meta = {
 
   if (form && submitButton) {
     const webhookUrl = form.dataset.webhookUrl?.trim() ?? '';
-    const agentId = form.dataset.agentId?.trim() ?? 'tashi';
-
     if (!webhookUrl) {
       submitButton.disabled = true;
       setStatus('Complaint endpoint not configured yet.');
@@ -412,7 +409,7 @@ export const meta = {
 
       const payload = {
         event: 'agent.complaint.submitted',
-        agentId,
+        agentId: 'tashi',
         submittedAt: new Date().toISOString(),
         source: {
           site: 'tashi',
